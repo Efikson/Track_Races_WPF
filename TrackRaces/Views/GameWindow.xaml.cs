@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Windows;
 using System.Windows.Input;
 using TrackRaces.ViewModels;
 
@@ -16,11 +17,18 @@ namespace TrackRaces.Views
             DataContext = gameWindowViewModel;
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
-        {            
-            if (e.Key == Key.Escape)
-            {
-                this.Close();
-            }
+        {
+            ReturnToMenu_Click(sender, e);
+        }
+        private void NewRoundButton_Click (object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void ReturnToMenu_Click(object sender, RoutedEventArgs e)
+        {
+            var mainMenuWindow = App.ServiceProvider?.GetRequiredService<MainMenu>();
+            mainMenuWindow.Show();
+            this.Close();
         }
     }
 

@@ -3,44 +3,44 @@
   "WorkspaceRootPath": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|c:\\users\\filip\\documents\\visual studio 2022\\projects\\trackraces\\trackraces\\viewmodels\\mainmenuviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|solutionrelative:trackraces\\viewmodels\\mainmenuviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|c:\\users\\filip\\documents\\visual studio 2022\\projects\\trackraces\\trackraces\\views\\mainmenu.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|solutionrelative:trackraces\\views\\mainmenu.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|c:\\users\\filip\\documents\\visual studio 2022\\projects\\trackraces\\trackraces\\views\\gamewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|solutionrelative:trackraces\\views\\gamewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|c:\\users\\filip\\documents\\visual studio 2022\\projects\\trackraces\\trackraces\\views\\gamewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|solutionrelative:trackraces\\views\\gamewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|c:\\users\\filip\\documents\\visual studio 2022\\projects\\trackraces\\trackraces\\views\\mainmenu.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|solutionrelative:trackraces\\views\\mainmenu.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|c:\\users\\filip\\documents\\visual studio 2022\\projects\\trackraces\\trackraces\\views\\gamewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|solutionrelative:trackraces\\views\\gamewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|c:\\users\\filip\\documents\\visual studio 2022\\projects\\trackraces\\trackraces\\models\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|solutionrelative:trackraces\\models\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|c:\\users\\filip\\documents\\visual studio 2022\\projects\\trackraces\\trackraces\\viewmodels\\mainmenuviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|solutionrelative:trackraces\\viewmodels\\mainmenuviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|c:\\users\\filip\\documents\\visual studio 2022\\projects\\trackraces\\trackraces\\viewmodels\\gamewindowviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|solutionrelative:trackraces\\viewmodels\\gamewindowviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|c:\\users\\filip\\documents\\visual studio 2022\\projects\\trackraces\\trackraces\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|solutionrelative:trackraces\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|c:\\users\\filip\\documents\\visual studio 2022\\projects\\trackraces\\trackraces\\views\\gamewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|solutionrelative:trackraces\\views\\gamewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|c:\\users\\filip\\documents\\visual studio 2022\\projects\\trackraces\\trackraces\\models\\gamesettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|solutionrelative:trackraces\\models\\gamesettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|c:\\users\\filip\\documents\\visual studio 2022\\projects\\trackraces\\trackraces\\views\\mainmenu.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|solutionrelative:trackraces\\views\\mainmenu.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|c:\\users\\filip\\documents\\visual studio 2022\\projects\\trackraces\\trackraces\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|solutionrelative:trackraces\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|c:\\users\\filip\\documents\\visual studio 2022\\projects\\trackraces\\trackraces\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|solutionrelative:trackraces\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|c:\\users\\filip\\documents\\visual studio 2022\\projects\\trackraces\\trackraces\\models\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|solutionrelative:trackraces\\models\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|c:\\users\\filip\\documents\\visual studio 2022\\projects\\trackraces\\trackraces\\models\\gamesettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|solutionrelative:trackraces\\models\\gamesettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C75FC187-4006-4752-B7B0-051D355AAA76}|TrackRaces\\TrackRaces.csproj|c:\\users\\filip\\documents\\visual studio 2022\\projects\\trackraces\\trackraces\\trackraces.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
@@ -57,33 +57,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MainMenu.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\TrackRaces\\Views\\MainMenu.xaml.cs",
-              "RelativeDocumentMoniker": "TrackRaces\\Views\\MainMenu.xaml.cs",
-              "ToolTip": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\TrackRaces\\Views\\MainMenu.xaml.cs",
-              "RelativeToolTip": "TrackRaces\\Views\\MainMenu.xaml.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAjwCgAAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-11T11:46:14.843Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "GameWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\TrackRaces\\Views\\GameWindow.xaml",
-              "RelativeDocumentMoniker": "TrackRaces\\Views\\GameWindow.xaml",
-              "ToolTip": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\TrackRaces\\Views\\GameWindow.xaml",
-              "RelativeToolTip": "TrackRaces\\Views\\GameWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-01-04T09:23:11.456Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 7,
@@ -92,13 +67,14 @@
               "RelativeDocumentMoniker": "TrackRaces\\App.xaml.cs",
               "ToolTip": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\TrackRaces\\App.xaml.cs",
               "RelativeToolTip": "TrackRaces\\App.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA8AAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABsAAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-08T15:55:16.596Z"
+              "WhenOpened": "2025-01-08T15:55:16.596Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "GameSettings.cs",
               "DocumentMoniker": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\TrackRaces\\Models\\GameSettings.cs",
               "RelativeDocumentMoniker": "TrackRaces\\Models\\GameSettings.cs",
@@ -110,7 +86,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "Player.cs",
               "DocumentMoniker": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\TrackRaces\\Models\\Player.cs",
               "RelativeDocumentMoniker": "TrackRaces\\Models\\Player.cs",
@@ -118,25 +94,49 @@
               "RelativeToolTip": "TrackRaces\\Models\\Player.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABIAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-04T09:42:44.55Z",
+              "WhenOpened": "2025-01-04T09:42:44.55Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GameWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\TrackRaces\\Views\\GameWindow.xaml.cs",
+              "RelativeDocumentMoniker": "TrackRaces\\Views\\GameWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\TrackRaces\\Views\\GameWindow.xaml.cs",
+              "RelativeToolTip": "TrackRaces\\Views\\GameWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-04T09:30:09.108Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "GameWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\TrackRaces\\Views\\GameWindow.xaml",
+              "RelativeDocumentMoniker": "TrackRaces\\Views\\GameWindow.xaml",
+              "ToolTip": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\TrackRaces\\Views\\GameWindow.xaml",
+              "RelativeToolTip": "TrackRaces\\Views\\GameWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-01-04T09:23:11.456Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "MainMenuViewModel.cs",
               "DocumentMoniker": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\TrackRaces\\ViewModels\\MainMenuViewModel.cs",
               "RelativeDocumentMoniker": "TrackRaces\\ViewModels\\MainMenuViewModel.cs",
               "ToolTip": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\TrackRaces\\ViewModels\\MainMenuViewModel.cs",
               "RelativeToolTip": "TrackRaces\\ViewModels\\MainMenuViewModel.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAjwAcAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAjwBIAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-04T09:45:36.137Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "MainMenu.xaml",
               "DocumentMoniker": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\TrackRaces\\Views\\MainMenu.xaml",
               "RelativeDocumentMoniker": "TrackRaces\\Views\\MainMenu.xaml",
@@ -148,7 +148,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 6,
               "Title": "App.xaml",
               "DocumentMoniker": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\TrackRaces\\App.xaml",
               "RelativeDocumentMoniker": "TrackRaces\\App.xaml",
@@ -160,20 +160,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "GameWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\TrackRaces\\Views\\GameWindow.xaml.cs",
-              "RelativeDocumentMoniker": "TrackRaces\\Views\\GameWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\TrackRaces\\Views\\GameWindow.xaml.cs",
-              "RelativeToolTip": "TrackRaces\\Views\\GameWindow.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "MainMenu.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\TrackRaces\\Views\\MainMenu.xaml.cs",
+              "RelativeDocumentMoniker": "TrackRaces\\Views\\MainMenu.xaml.cs",
+              "ToolTip": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\TrackRaces\\Views\\MainMenu.xaml.cs",
+              "RelativeToolTip": "TrackRaces\\Views\\MainMenu.xaml.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAYwCwAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-04T09:30:09.108Z",
+              "WhenOpened": "2025-01-11T11:46:14.843Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "GameWindowViewModel.cs",
               "DocumentMoniker": "C:\\Users\\filip\\Documents\\Visual Studio 2022\\Projects\\TrackRaces\\TrackRaces\\ViewModels\\GameWindowViewModel.cs",
               "RelativeDocumentMoniker": "TrackRaces\\ViewModels\\GameWindowViewModel.cs",
@@ -181,7 +181,8 @@
               "RelativeToolTip": "TrackRaces\\ViewModels\\GameWindowViewModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-08T15:07:56.081Z"
+              "WhenOpened": "2025-01-08T15:07:56.081Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",

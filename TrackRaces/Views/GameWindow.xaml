@@ -5,28 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:TrackRaces.ViewModels" 
         mc:Ignorable="d"
-        Title="GameWindow"       
+        Title="GameWindow"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         KeyDown="Window_KeyDown">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="auto"/>            
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="750"/>
+            <ColumnDefinition Width="150"/>
         </Grid.ColumnDefinitions>
 
-        <Canvas Grid.Row="0" Grid.Column="0" Grid.RowSpan="8" Background="White" Height="500" Width="750">
+        <Canvas Grid.Row="0" Grid.Column="0" Grid.RowSpan="8" Background="White" Height="500">
             <!-- Green border -->
             <Rectangle 
             Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Canvas}}" 
@@ -65,9 +64,9 @@
         </StackPanel>
 
         <!-- Restart and Menu Buttons -->
-        <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="center" Margin="0,20,0,20">
-            <Button Content="New Round" Command="{Binding NewRoundCommand}" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-            <Button Content="Return to Menu" Command="{Binding ReturnToMenuCommand}" HorizontalAlignment="Center"/>
+        <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="center" Margin="0,10,0,10">
+            <Button Content="New Round" Click="NewRoundButton_Click" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+            <Button Content="Return to Menu" Click="ReturnToMenu_Click" HorizontalAlignment="Center"/>
         </StackPanel>
 
         <!-- Total Rounds and Countdown -->
