@@ -22,3 +22,7 @@ C:\Users\filip\Documents\Visual Studio 2022\Projects\TrackRaces\TrackRaces\obj\D
 C:\Users\filip\Documents\Visual Studio 2022\Projects\TrackRaces\TrackRaces\obj\Debug\net8.0-windows\TrackRaces.genruntimeconfig.cache
 C:\Users\filip\Documents\Visual Studio 2022\Projects\TrackRaces\TrackRaces\obj\Debug\net8.0-windows\ref\TrackRaces.dll
 C:\Users\filip\Documents\Visual Studio 2022\Projects\TrackRaces\TrackRaces\obj\Debug\net8.0-windows\TrackRaces.sourcelink.json
+C:\Users\filip\Documents\Visual Studio 2022\Projects\TrackRaces\TrackRaces\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\filip\Documents\Visual Studio 2022\Projects\TrackRaces\TrackRaces\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\filip\Documents\Visual Studio 2022\Projects\TrackRaces\TrackRaces\obj\Debug\net8.0-windows\TrackRaces.csproj.AssemblyReference.cache
+C:\Users\filip\Documents\Visual Studio 2022\Projects\TrackRaces\TrackRaces\obj\Debug\net8.0-windows\TrackRaces.csproj.Up2Date

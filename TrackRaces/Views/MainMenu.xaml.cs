@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using TrackRaces.ViewModels;
 
 namespace TrackRaces.Views
 {
@@ -8,10 +9,14 @@ namespace TrackRaces.Views
     /// </summary>
     public partial class MainMenu : Window
     {
-        public MainMenu()
+        public MainMenu(MainMenuViewModel mainMenuViewModel)
         {
-            InitializeComponent();                    
+            InitializeComponent();
+
+            // Set DataContext for binding
+            DataContext = mainMenuViewModel;
         }
+
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {           
             if (e.Key == Key.Escape)

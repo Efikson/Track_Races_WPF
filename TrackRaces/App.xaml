@@ -1,8 +1,8 @@
 ﻿<Application x:Class="TrackRaces.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:TrackRaces"
-             StartupUri="Views/MainMenu.xaml">
+             xmlns:local="clr-namespace:TrackRaces">
+    
     <Application.Resources>
          
     </Application.Resources>

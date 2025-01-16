@@ -23,18 +23,18 @@
 
         <!-- Line Thickness -->
         <Label Content="Line Thickness:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,100,0,0" />
-        <Slider Minimum="5" Maximum="20" Value="{Binding LineThickness}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="150,100,0,0" />
-        <TextBlock Text="{Binding LineThickness}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="360,100,0,0" />
+        <Slider Minimum="5" Maximum="20" Value="{Binding GameSettings.LineThickness}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="150,100,0,0" />
+        <TextBlock Text="{Binding GameSettings.LineThickness}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="360,100,0,0" />
 
         <!-- Line Speed -->
         <Label Content="Line Speed:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,140,0,0" />
-        <Slider Minimum="1" Maximum="10" Value="{Binding LineSpeed}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="150,140,0,0" />
-        <TextBlock Text="{Binding LineSpeed}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="360,140,0,0" />
+        <Slider Minimum="1" Maximum="10" Value="{Binding GameSettings.LineSpeed}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="150,140,0,0" />
+        <TextBlock Text="{Binding GameSettings.LineSpeed}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="360,140,0,0" />
 
         <!-- Rounds -->
         <Label Content="First to reach:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,180,0,0" />
-        <Slider Minimum="1" Maximum="15" Value="{Binding TargetScore}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="150,180,0,0" />
-        <TextBlock Text="{Binding TargetScore }" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="360,180,0,0" />
+        <Slider Minimum="1" Maximum="15" Value="{Binding GameSettings.TargetScore}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="150,180,0,0" />
+        <TextBlock Text="{Binding GameSettings.TargetScore }" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="360,180,0,0" />
 
         <!-- Start Game Button -->
         <Button Content="Start Game" Command="{Binding StartGameCommand}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Margin="0,0,0,20" />
