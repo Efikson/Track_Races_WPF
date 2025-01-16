@@ -37,6 +37,6 @@
         <TextBlock Text="{Binding GameSettings.TargetScore }" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="360,180,0,0" />
 
         <!-- Start Game Button -->
-        <Button Content="Start Game" Command="{Binding StartGameCommand}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Margin="0,0,0,20" />
+        <Button Content="Start Game" Click="StartGameButton_Click" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Margin="0,0,0,20" />
     </Grid>
 </Window>

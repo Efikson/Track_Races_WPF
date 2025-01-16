@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using TrackRaces.ViewModels;
 
 namespace TrackRaces.Views
 {
@@ -8,9 +9,11 @@ namespace TrackRaces.Views
     /// </summary>
     public partial class GameWindow : Window
     {
-        public GameWindow()
+        public GameWindow(GameWindowViewModel gameWindowViewModel)
         {
-            InitializeComponent();            
+            InitializeComponent();
+
+            DataContext = gameWindowViewModel;
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {            

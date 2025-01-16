@@ -9,10 +9,6 @@
         ResizeMode="NoResize"
         KeyDown="Window_KeyDown">
 
-    <Window.DataContext>
-        <vm:GameWindowViewModel />
-    </Window.DataContext>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -27,7 +23,7 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto" MinWidth="180"/>
+            <ColumnDefinition Width="180"/>
         </Grid.ColumnDefinitions>
 
         <Canvas Grid.Row="0" Grid.Column="0" Grid.RowSpan="8" Background="White" Height="500" Width="750">

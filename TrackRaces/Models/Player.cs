@@ -3,7 +3,7 @@ using System.Windows.Media;
 
 namespace TrackRaces.Models
 {
-    internal class Player
+    public class Player
     {
         public string Name { get; set; }
         public Color Color { get; set; }

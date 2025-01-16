@@ -1,6 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using TrackRaces.ViewModels;
+using TrackRaces.Models;
+using TrackRaces.Views;
+
 
 namespace TrackRaces.Views
 {
@@ -23,6 +26,23 @@ namespace TrackRaces.Views
             {
                 this.Close(); 
             }
+        }
+        private void StartGameButton_Click(object sender, RoutedEventArgs e)
+        {  
+            // Direct access to ViewModel via DataContext
+            var mainMenuViewModel = (MainMenuViewModel)DataContext;
+
+            var gameWindowViewModel = new GameWindowViewModel(
+              mainMenuViewModel.Player1,
+              mainMenuViewModel.Player2,
+              mainMenuViewModel.GameSettings
+            );
+
+            var gameWindow = new GameWindow(gameWindowViewModel);
+
+            gameWindow.Show();
+            //Closing main menu
+            this.Close();
         }
     }
 }
