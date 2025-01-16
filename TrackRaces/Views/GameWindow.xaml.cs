@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using TrackRaces.ViewModels;
 
 namespace TrackRaces.Views
@@ -9,12 +10,12 @@ namespace TrackRaces.Views
     /// Interaction logic for GameWindow.xaml
     /// </summary>
     public partial class GameWindow : Window
-    {
+    {       
         public GameWindow(GameWindowViewModel gameWindowViewModel)
         {
             InitializeComponent();
 
-            DataContext = gameWindowViewModel;
+            DataContext = gameWindowViewModel;        
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
@@ -22,7 +23,10 @@ namespace TrackRaces.Views
         }
         private void NewRoundButton_Click (object sender, RoutedEventArgs e)
         {
-
+            if (DataContext is GameWindowViewModel viewModel)
+            {
+                viewModel.StartCountdown();
+            }
         }
         private void ReturnToMenu_Click(object sender, RoutedEventArgs e)
         {
@@ -30,6 +34,7 @@ namespace TrackRaces.Views
             mainMenuWindow.Show();
             this.Close();
         }
+
     }
 
 }

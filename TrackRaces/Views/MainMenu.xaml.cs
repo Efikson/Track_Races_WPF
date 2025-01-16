@@ -39,8 +39,9 @@ namespace TrackRaces.Views
             );
 
             var gameWindow = new GameWindow(gameWindowViewModel);
-
+            gameWindowViewModel.StartCountdown();            
             gameWindow.Show();
+            
             // Hide main menu
             this.Hide();
         }
