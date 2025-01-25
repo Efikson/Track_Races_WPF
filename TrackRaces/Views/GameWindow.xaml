@@ -25,7 +25,7 @@
             <ColumnDefinition Width="150"/>
         </Grid.ColumnDefinitions>
 
-        <Canvas Grid.Row="0" Grid.Column="0" Grid.RowSpan="8" Background="White" Height="500">
+        <Canvas x:Name="gameCanvas" Grid.Row="0" Grid.Column="0" Grid.RowSpan="8" Background="White" Height="500">
             <!-- Green border -->
             <Rectangle 
             Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Canvas}}" 

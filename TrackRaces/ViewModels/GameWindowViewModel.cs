@@ -1,6 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 using TrackRaces.Models;
 
@@ -15,7 +19,9 @@ namespace TrackRaces.ViewModels
         private DispatcherTimer countdownTimer;
 
         private string countdownValue;
-        
+
+        private Canvas gameCanvas;
+
         public string CountdownValue
         {
             get { return countdownValue; }
@@ -43,8 +49,9 @@ namespace TrackRaces.ViewModels
         {
             Player1 = player1;
             Player2 = player2;
-            GameSettings = gameSettings;
+            GameSettings = gameSettings;            
         }
+
         public void StartCountdown()
         {
             CountdownValue = "3";
@@ -67,9 +74,81 @@ namespace TrackRaces.ViewModels
             {
                 countdownTimer.Stop();
                 CountdownValue = "";
-
-                // Method to start the game
+                
+                StartGame();
             }
         }
+
+        private void StartGame()
+        {
+            ResetPlayerPosition(gameCanvas);
+            // ResetCanvas(gameCanvas)
+            StartGameTickTimer();                                   
+        }
+
+        private void ResetPlayerPosition(Canvas gameCanvas)
+        {
+            Random random = new Random();
+            double canvasWidth = gameCanvas.ActualWidth;
+            double canvasHeight = gameCanvas.ActualHeight;
+           
+            Player1.Position = new Point(canvasWidth * 0.25, canvasHeight * 0.5);
+            Player2.Position = new Point(canvasWidth * 0.75, canvasHeight * 0.5);
+
+            Player1.Angle = random.Next(0, 360); 
+            Player2.Angle = random.Next(0, 360);
+        }
+
+        private void StartGameTickTimer()
+        {
+            DispatcherTimer gameTickTimer = new DispatcherTimer();
+            gameTickTimer.Interval = TimeSpan.FromMilliseconds(33.33); // 30 FPS
+            gameTickTimer.Tick += GameTickTimer_Tick;
+            gameTickTimer.Start();
+        }
+        private void GameTickTimer_Tick(object sender, EventArgs e)
+        {            
+            UpdatePlayerPositions(gameCanvas);
+            //CheckCollisions(gameCanvas);            
+        }
+
+        public void SetCanvas(Canvas canvas)
+        {
+            gameCanvas = canvas;
+        }
+
+        public void UpdatePlayerPositions(Canvas gameCanvas)
+        {            
+            MovePlayer(Player1, gameCanvas);
+            MovePlayer(Player2, gameCanvas);
+        }        
+
+        private void MovePlayer(Player player, Canvas gameCanvas)
+        {            
+            double radians = player.Angle * (Math.PI / 180); // Convert degrees to radians
+            double newX = player.Position.X + GameSettings.LineSpeed * Math.Cos(radians);
+            double newY = player.Position.Y + GameSettings.LineSpeed * Math.Sin(radians);
+           
+            DrawLine(gameCanvas, player.Position, new Point(newX, newY), player.Color);
+            
+            player.Position = new Point(newX, newY);
+        }
+
+        private void DrawLine(Canvas canvas, Point start, Point end, Color color)
+        {
+            // Convert Color to SolidColorBrush
+            Brush brushColor = new SolidColorBrush(color);
+            Line line = new Line
+            {
+                X1 = start.X,
+                Y1 = start.Y,
+                X2 = end.X,
+                Y2 = end.Y,
+                Stroke = brushColor,
+                StrokeThickness = GameSettings.LineThickness
+            };
+            canvas.Children.Add(line);
+        }
+
     }
 }

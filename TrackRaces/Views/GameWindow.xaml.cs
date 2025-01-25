@@ -13,9 +13,12 @@ namespace TrackRaces.Views
     {       
         public GameWindow(GameWindowViewModel gameWindowViewModel)
         {
-            InitializeComponent();
+            InitializeComponent();            
 
-            DataContext = gameWindowViewModel;        
+            DataContext = gameWindowViewModel; 
+            
+            gameWindowViewModel.SetCanvas(gameCanvas);
+
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
