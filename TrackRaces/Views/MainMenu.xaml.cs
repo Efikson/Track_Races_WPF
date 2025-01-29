@@ -3,6 +3,7 @@ using System.Windows.Input;
 using TrackRaces.ViewModels;
 using TrackRaces.Models;
 using TrackRaces.Views;
+using Microsoft.Extensions.DependencyInjection;
 
 
 namespace TrackRaces.Views
@@ -11,37 +12,28 @@ namespace TrackRaces.Views
     /// Interaction logic for MainMenu.xaml
     /// </summary>
     public partial class MainMenu : Window
-    {
+    {        
         public MainMenu(MainMenuViewModel mainMenuViewModel)
         {
             InitializeComponent();
-
             // Set DataContext for binding
-            DataContext = mainMenuViewModel;
+            DataContext = mainMenuViewModel;    
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {           
             if (e.Key == Key.Escape)
             {
-                this.Close(); 
+                Application.Current.Shutdown();
             }
         }
         private void StartGameButton_Click(object sender, RoutedEventArgs e)
-        {  
-            // Direct access to ViewModel via DataContext
+        {
+            // Get access to the ViewModel
             var mainMenuViewModel = (MainMenuViewModel)DataContext;
+           
+            mainMenuViewModel.StartGameWindow();
 
-            var gameWindowViewModel = new GameWindowViewModel(
-              mainMenuViewModel.Player1,
-              mainMenuViewModel.Player2,
-              mainMenuViewModel.GameSettings
-            );
-
-            var gameWindow = new GameWindow(gameWindowViewModel);
-            gameWindowViewModel.StartCountdown();            
-            gameWindow.Show();
-            
             // Hide main menu
             this.Hide();
         }

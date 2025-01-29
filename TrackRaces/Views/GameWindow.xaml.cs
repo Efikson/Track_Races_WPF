@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using TrackRaces.ViewModels;
@@ -18,11 +19,15 @@ namespace TrackRaces.Views
             DataContext = gameWindowViewModel; 
             
             gameWindowViewModel.SetCanvas(gameCanvas);
-
+            gameWindowViewModel.SetGameRenderer();
+            gameWindowViewModel.SetPlayerController();
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            ReturnToMenu_Click(sender, e);
+            if (DataContext is GameWindowViewModel viewModel)
+            {
+                viewModel.HandleKeyPress(e.Key);           
+            }
         }
         private void NewRoundButton_Click (object sender, RoutedEventArgs e)
         {
@@ -33,9 +38,10 @@ namespace TrackRaces.Views
         }
         private void ReturnToMenu_Click(object sender, RoutedEventArgs e)
         {
-            var mainMenuWindow = App.ServiceProvider?.GetRequiredService<MainMenu>();
-            mainMenuWindow.Show();
-            this.Close();
+            if (DataContext is GameWindowViewModel viewModel)
+            {
+                viewModel.ReturnToMainMenu();
+            }
         }
 
     }

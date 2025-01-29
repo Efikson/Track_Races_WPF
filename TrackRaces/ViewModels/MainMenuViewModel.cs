@@ -1,32 +1,38 @@
-﻿using System.Windows.Media;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Windows.Media;
 using TrackRaces.Models;
 using TrackRaces.Views;
 
 namespace TrackRaces.ViewModels
 {
     public class MainMenuViewModel
-    {        
-        public Player Player1 { get; set; }
-        public Player Player2 { get; set; }        
-        private GameSettings _gameSettings;
+    {
+        private readonly IServiceProvider _serviceProvider;
+        public Player Player1 { get; private set; }
+        public Player Player2 { get; private set; }
+        public GameSettings GameSettings { get; private set; }
 
-        public MainMenuViewModel(GameSettings gameSettings)
-        {            
-            // Initializing players with default values
+        public MainMenuViewModel(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+            
             Player1 = new Player("Player One", Colors.Red);
             Player2 = new Player("Player Two", Colors.Blue);
-
-            _gameSettings = gameSettings;
+            GameSettings = new GameSettings();
         }
 
-        public GameSettings GameSettings
-        {
-            get => _gameSettings;
-            set
-            {
-                _gameSettings = value;               
-            }
-        }
+        public void StartGameWindow()
+        {            
+            var gameWindowViewModel = _serviceProvider.GetRequiredService<GameWindowViewModel>();
+            gameWindowViewModel.SetPlayers(Player1, Player2);
+            gameWindowViewModel.SetGameSettings(GameSettings);
+
+            var gameWindow = _serviceProvider.GetRequiredService<GameWindow>();
+            gameWindow.DataContext = gameWindowViewModel;
+
+            gameWindowViewModel.StartCountdown();
+
+            gameWindow.Show();
+        }   
     }
-
 }

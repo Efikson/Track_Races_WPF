@@ -11,13 +11,11 @@ namespace TrackRaces.Models
         public bool JumpCollected { get; set; }
         public Point Position { get; set; }
         public double Angle { get; set; }
-
+        
         public Player(string name, Color color)
         {
             Name = name;
             Color = color;
-            Score = 0;
         }
     }
-
 }

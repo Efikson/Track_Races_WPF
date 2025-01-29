@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
+using System.Windows.Media;
+using TrackRaces.Logic;
 using TrackRaces.Models;
 using TrackRaces.ViewModels;
 using TrackRaces.Views;
@@ -19,7 +21,7 @@ namespace TrackRaces
 
             // Create ServiceProvider
             ServiceProvider = serviceCollection.BuildServiceProvider();
-
+            
             // Show the main window
             var mainWindow = ServiceProvider.GetRequiredService<MainMenu>();
             mainWindow.Show();
@@ -32,11 +34,12 @@ namespace TrackRaces
             services.AddSingleton<GameWindowViewModel>();
 
             // Register Models
-            services.AddSingleton<GameSettings>();       
+            services.AddSingleton<GameSettings>();
             services.AddSingleton<Player>();
 
             // Register Views
             services.AddSingleton<MainMenu>();
+            services.AddSingleton<GameWindow>();
         }
         
     }

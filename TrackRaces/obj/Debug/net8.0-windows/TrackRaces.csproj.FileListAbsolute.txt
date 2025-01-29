@@ -6,7 +6,6 @@ C:\Users\filip\Documents\Visual Studio 2022\Projects\TrackRaces\TrackRaces\bin\D
 C:\Users\filip\Documents\Visual Studio 2022\Projects\TrackRaces\TrackRaces\obj\Debug\net8.0-windows\Views\GameWindow.g.cs
 C:\Users\filip\Documents\Visual Studio 2022\Projects\TrackRaces\TrackRaces\obj\Debug\net8.0-windows\Views\MainMenu.g.cs
 C:\Users\filip\Documents\Visual Studio 2022\Projects\TrackRaces\TrackRaces\obj\Debug\net8.0-windows\App.g.cs
-C:\Users\filip\Documents\Visual Studio 2022\Projects\TrackRaces\TrackRaces\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\filip\Documents\Visual Studio 2022\Projects\TrackRaces\TrackRaces\obj\Debug\net8.0-windows\TrackRaces_MarkupCompile.cache
 C:\Users\filip\Documents\Visual Studio 2022\Projects\TrackRaces\TrackRaces\obj\Debug\net8.0-windows\TrackRaces_MarkupCompile.lref
 C:\Users\filip\Documents\Visual Studio 2022\Projects\TrackRaces\TrackRaces\obj\Debug\net8.0-windows\Views\GameWindow.baml

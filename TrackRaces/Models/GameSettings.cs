@@ -4,9 +4,6 @@
     {
         public int LineThickness { get; set; } = 5;
         public int LineSpeed { get; set; } = 5;     
-        public int TargetScore { get; set; } = 7;   
-
+        public int TargetScore { get; set; } = 7;  
     }
-
-
 }
