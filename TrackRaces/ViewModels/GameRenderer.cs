@@ -13,6 +13,7 @@ namespace TrackRaces.Logic
         public Player Player2 { get; private set; }
         private Canvas gameCanvas;
         private readonly GameSettings gameSettings;
+        private Random random = new Random();
 
         public GameRenderer(Canvas canvas, GameSettings settings, Player player1, Player player2)
         {
@@ -23,8 +24,7 @@ namespace TrackRaces.Logic
         }
 
         public void ResetPlayerPosition()
-        {
-            Random random = new Random();
+        {            
             double canvasWidth = gameCanvas.ActualWidth;
             double canvasHeight = gameCanvas.ActualHeight;
 
