@@ -75,11 +75,6 @@ namespace TrackRaces.ViewModels
             StartGameTickTimer();            
         }
 
-        public void HandleKeyPress(Key key)
-        {
-            playerController.HandleInput(key);
-        }
-
         public void ReturnToMainMenu()
         {            
             var mainMenu = App.ServiceProvider.GetRequiredService<MainMenu>();            
@@ -133,14 +128,15 @@ namespace TrackRaces.ViewModels
         private void StartGameTickTimer()
         {
             DispatcherTimer gameTickTimer = new DispatcherTimer();
-            gameTickTimer.Interval = TimeSpan.FromMilliseconds(33.33); // 33.33 - 30 FPS || 16.66 - 60 FPS
+            gameTickTimer.Interval = TimeSpan.FromMilliseconds(16.66); // 33.33 - 30 FPS || 16.66 - 60 FPS
             gameTickTimer.Tick += GameTickTimer_Tick;
             gameTickTimer.Start();
         }
 
         private void GameTickTimer_Tick(object sender, EventArgs e)
         {
-             gameRenderer.UpdatePlayerPositions(Player1, Player2);            
+            playerController.UpdatePlayerMovements();
+            gameRenderer.UpdatePlayerPositions(Player1, Player2);            
         }
     }
 }

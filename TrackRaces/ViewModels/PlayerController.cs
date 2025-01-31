@@ -19,34 +19,30 @@ namespace TrackRaces.Logic
             this.Player2 = Player2;            
         }
 
-        public void HandleInput(Key key)
-        {
-            switch (key)
+        public void UpdatePlayerMovements()
+        {            
+            if (Keyboard.IsKeyDown(Key.A))
             {
-                // Player 1: A, D
-                case Key.A:
-                    RotatePlayer(Player1, -TurnSpeed);
-                    break;
-                case Key.D:
-                    RotatePlayer(Player1, TurnSpeed);
-                    break;
-
-                // Player 2: Left, Right
-                case Key.Left:
-                    RotatePlayer(Player2, -TurnSpeed);
-                    break;
-                case Key.Right:
-                    RotatePlayer(Player2, TurnSpeed);
-                    break;
-
-                default:
-                    // No action for other keys
-                    break;
+                RotatePlayer(Player1, -TurnSpeed);
+            }
+            if (Keyboard.IsKeyDown(Key.D))
+            {
+                RotatePlayer(Player1, TurnSpeed);
+            }
+   
+            if (Keyboard.IsKeyDown(Key.Left))
+            {
+                RotatePlayer(Player2, -TurnSpeed);
+            }
+            if (Keyboard.IsKeyDown(Key.Right))
+            {
+                RotatePlayer(Player2, TurnSpeed);
             }
         }
-        private void RotatePlayer(Player Player, double angleChange)
+
+        private void RotatePlayer(Player player, double angleChange)
         {
-            Player.Angle += angleChange;
+            player.Angle += angleChange;
         }
 
     }

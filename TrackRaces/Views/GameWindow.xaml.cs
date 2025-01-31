@@ -22,13 +22,7 @@ namespace TrackRaces.Views
             gameWindowViewModel.SetGameRenderer();
             gameWindowViewModel.SetPlayerController();
         }
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (DataContext is GameWindowViewModel viewModel)
-            {
-                viewModel.HandleKeyPress(e.Key);           
-            }
-        }
+
         private void NewRoundButton_Click (object sender, RoutedEventArgs e)
         {
             if (DataContext is GameWindowViewModel viewModel)

@@ -44,8 +44,8 @@ namespace TrackRaces.Logic
         private void MovePlayer(Player player)
         {
             double radians = player.Angle * (Math.PI / 180); // Convert degrees to radians
-            double newX = player.Position.X + gameSettings.LineSpeed * Math.Cos(radians);
-            double newY = player.Position.Y + gameSettings.LineSpeed * Math.Sin(radians);
+            double newX = player.Position.X + gameSettings.LineSpeed * 0.75 * Math.Cos(radians);
+            double newY = player.Position.Y + gameSettings.LineSpeed * 0.75 * Math.Sin(radians);
 
             DrawLine(player.Position, new Point(newX, newY), player.Color);
             player.Position = new Point(newX, newY);
