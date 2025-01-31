@@ -21,12 +21,35 @@ namespace TrackRaces.ViewModels
         public GameSettings GameSettings { get; private set; }
 
         private DispatcherTimer countdownTimer;
+        private DispatcherTimer bonusTimer;
 
         private string countdownValue;
+        private int timeUntilBonus;
 
         private Canvas gameCanvas;
         private GameRenderer gameRenderer;
         private PlayerController playerController;
+        private Random random = new Random();
+        private Ellipse bonusShape;
+
+        public string CountdownValue
+        {
+            get { return countdownValue; }
+            set
+            {
+                countdownValue = value;
+                NotifyPropertyChanged(nameof(CountdownValue));
+            }
+        }
+        public int TimeUntilBonus
+        {
+            get { return timeUntilBonus; }
+            set
+            {
+                timeUntilBonus = value;
+                NotifyPropertyChanged(nameof(TimeUntilBonus));
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -69,7 +92,7 @@ namespace TrackRaces.ViewModels
         }
 
         private void StartGame()
-        {
+        {            
             gameRenderer.ResetPlayerPosition();
             // ResetCanvas(gameCanvas)
             StartGameTickTimer();            
@@ -83,19 +106,6 @@ namespace TrackRaces.ViewModels
             Application.Current.Windows
                 .OfType<GameWindow>()
                 .FirstOrDefault()?.Hide();
-        }
-
-        public string CountdownValue
-        {
-            get { return countdownValue; }
-            set
-            {
-                if (countdownValue != value)
-                {
-                    countdownValue = value;
-                    NotifyPropertyChanged(nameof(CountdownValue));
-                }
-            }
         }
 
         public void StartCountdown()
@@ -119,8 +129,8 @@ namespace TrackRaces.ViewModels
             else
             {
                 countdownTimer.Stop();
-                CountdownValue = "";
-                
+                CountdownValue = "";                
+
                 StartGame();
             }
         }
@@ -138,5 +148,49 @@ namespace TrackRaces.ViewModels
             playerController.UpdatePlayerMovements();
             gameRenderer.UpdatePlayerPositions(Player1, Player2);            
         }
+
+        public void StartBonusTimer()
+        {
+            TimeUntilBonus = 5;
+            bonusTimer = new DispatcherTimer();
+            bonusTimer.Interval = TimeSpan.FromSeconds(1);
+            bonusTimer.Tick += BonusTimer_Tick;
+            bonusTimer.Start();
+        }
+
+        private void BonusTimer_Tick(object sender, EventArgs e)
+        {
+            if (TimeUntilBonus > 1)
+            {
+                TimeUntilBonus--;
+            }
+            else
+            {
+                TimeUntilBonus = 5;
+                SpawnBonus();               
+            }
+        }
+
+        private void SpawnBonus()
+        {            
+            if (bonusShape == null)
+            {
+                bonusShape = new Ellipse
+                {
+                    Width = 20,
+                    Height = 20,
+                    Fill = Brushes.Gold
+                };
+               
+                gameCanvas.Children.Add(bonusShape);
+            }
+            
+            double x = random.Next(10, (int)(gameCanvas.ActualWidth - bonusShape.Width - 10)); 
+            double y = random.Next(10, (int)(gameCanvas.ActualHeight - bonusShape.Height - 10)); 
+           
+            Canvas.SetLeft(bonusShape, x);
+            Canvas.SetTop(bonusShape, y);
+        }
+
     }
 }

@@ -74,7 +74,9 @@
                 First to reach: <Run Text="{Binding GameSettings.TargetScore}" />
             </TextBlock>
             <Label Content="Time Until Bonus" HorizontalAlignment="Center"/>
-            <Label Content="{Binding TimeUntilBonus}" HorizontalAlignment="Center" FontSize="20"/>
+            <TextBlock HorizontalAlignment="Center" FontSize="20">
+                 <Run Text="{Binding TimeUntilBonus}" />
+            </TextBlock>            
         </StackPanel>
     </Grid>
 

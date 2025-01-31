@@ -31,6 +31,7 @@ namespace TrackRaces.ViewModels
             gameWindow.DataContext = gameWindowViewModel;
 
             gameWindowViewModel.StartCountdown();
+            gameWindowViewModel.StartBonusTimer();
 
             gameWindow.Show();
         }   

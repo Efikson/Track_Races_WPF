@@ -28,6 +28,7 @@ namespace TrackRaces.Views
             if (DataContext is GameWindowViewModel viewModel)
             {
                 viewModel.StartCountdown();
+                viewModel.StartBonusTimer();
             }
         }
         private void ReturnToMenu_Click(object sender, RoutedEventArgs e)
