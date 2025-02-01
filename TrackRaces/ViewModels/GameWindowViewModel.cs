@@ -20,6 +20,7 @@ namespace TrackRaces.ViewModels
         public Player Player2 { get; private set; } 
         public GameSettings GameSettings { get; private set; }
 
+        private DispatcherTimer gameTickTimer;
         private DispatcherTimer countdownTimer;
         private DispatcherTimer bonusTimer;
 
@@ -29,6 +30,7 @@ namespace TrackRaces.ViewModels
         private Canvas gameCanvas;
         private GameRenderer gameRenderer;
         private PlayerController playerController;
+        private PlayerCollision playerCollision;
         private Random random = new Random();
         private Ellipse bonusShape;
 
@@ -90,6 +92,10 @@ namespace TrackRaces.ViewModels
         {
             playerController = new PlayerController(Player1, Player2);
         }
+        public void SetPlayerCollision()
+        {
+            playerCollision = new PlayerCollision(this, gameCanvas, GameSettings, Player1, Player2);
+        }
 
         private void StartGame()
         {            
@@ -137,7 +143,7 @@ namespace TrackRaces.ViewModels
 
         private void StartGameTickTimer()
         {
-            DispatcherTimer gameTickTimer = new DispatcherTimer();
+            gameTickTimer = new DispatcherTimer();
             gameTickTimer.Interval = TimeSpan.FromMilliseconds(16.66); // 33.33 - 30 FPS || 16.66 - 60 FPS
             gameTickTimer.Tick += GameTickTimer_Tick;
             gameTickTimer.Start();
@@ -145,8 +151,11 @@ namespace TrackRaces.ViewModels
 
         private void GameTickTimer_Tick(object sender, EventArgs e)
         {
+            playerCollision.CheckPlayerCollision(1);
+            playerCollision.CheckPlayerCollision(2);
             playerController.UpdatePlayerMovements();
-            gameRenderer.UpdatePlayerPositions(Player1, Player2);            
+            gameRenderer.UpdatePlayerPositions(Player1, Player2);
+
         }
 
         public void StartBonusTimer()
@@ -192,5 +201,10 @@ namespace TrackRaces.ViewModels
             Canvas.SetTop(bonusShape, y);
         }
 
+        public void StopAllTimers()
+        {
+            gameTickTimer.Stop();
+            bonusTimer.Stop();           
+        }
     }
 }

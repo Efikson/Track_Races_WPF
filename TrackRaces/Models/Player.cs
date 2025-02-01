@@ -17,5 +17,6 @@ namespace TrackRaces.Models
             Name = name;
             Color = color;
         }
+
     }
 }

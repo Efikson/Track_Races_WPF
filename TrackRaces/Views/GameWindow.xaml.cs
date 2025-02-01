@@ -21,6 +21,7 @@ namespace TrackRaces.Views
             gameWindowViewModel.SetCanvas(gameCanvas);
             gameWindowViewModel.SetGameRenderer();
             gameWindowViewModel.SetPlayerController();
+            gameWindowViewModel.SetPlayerCollision();
         }
 
         private void NewRoundButton_Click (object sender, RoutedEventArgs e)
