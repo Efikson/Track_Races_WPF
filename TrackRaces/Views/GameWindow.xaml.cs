@@ -22,13 +22,14 @@ namespace TrackRaces.Views
             gameWindowViewModel.SetGameRenderer();
             gameWindowViewModel.SetPlayerController();
             gameWindowViewModel.SetPlayerCollision();
+            gameWindowViewModel.SetTimerManager();
         }
 
         private void NewRoundButton_Click (object sender, RoutedEventArgs e)
         {
             if (DataContext is GameWindowViewModel viewModel)
             {
-                viewModel.StartCountdown();
+                viewModel.StartCountdownTimer();
                 viewModel.StartBonusTimer();
             }
         }

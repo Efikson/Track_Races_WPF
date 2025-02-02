@@ -30,7 +30,7 @@ namespace TrackRaces.ViewModels
             var gameWindow = _serviceProvider.GetRequiredService<GameWindow>();
             gameWindow.DataContext = gameWindowViewModel;
 
-            gameWindowViewModel.StartCountdown();
+            gameWindowViewModel.StartCountdownTimer();
             gameWindowViewModel.StartBonusTimer();
 
             gameWindow.Show();

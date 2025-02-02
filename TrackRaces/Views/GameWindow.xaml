@@ -36,7 +36,7 @@
            HorizontalAlignment="Center"
            VerticalAlignment="Center"
            Visibility="Visible"
-           Text="{Binding CountdownValue}"
+           Text="{Binding TimerManager.CountdownValue}"
            Canvas.Left="375"
            Canvas.Top="220"/>
         </Canvas>
@@ -75,7 +75,7 @@
             </TextBlock>
             <Label Content="Time Until Bonus" HorizontalAlignment="Center"/>
             <TextBlock HorizontalAlignment="Center" FontSize="20">
-                 <Run Text="{Binding TimeUntilBonus}" />
+                 <Run Text="{Binding TimerManager.TimeUntilBonus}" />
             </TextBlock>            
         </StackPanel>
     </Grid>

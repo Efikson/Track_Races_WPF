@@ -15,7 +15,7 @@ using System.Runtime.CompilerServices;
 
 namespace TrackRaces.ViewModels
 {
-    internal class PlayerCollision
+    public class PlayerCollision
     {
         public Player Player1 { get; private set; }
         public Player Player2 { get; private set; }
