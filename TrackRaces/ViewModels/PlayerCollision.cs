@@ -17,19 +17,32 @@ namespace TrackRaces.ViewModels
 {
     public class PlayerCollision
     {
-        public Player Player1 { get; private set; }
-        public Player Player2 { get; private set; }
-        private Canvas gameCanvas;
-        private readonly GameSettings gameSettings;     
-        private readonly GameWindowViewModel viewModel;
+        private Player Player1;
+        private Player Player2;
+        private Canvas GameCanvas;
+        private GameSettings GameSettings;     
+        private GameWindowViewModel _viewModel;
         private Random random = new Random();
-        public PlayerCollision(GameWindowViewModel viewModel, Canvas canvas, GameSettings settings, Player player1, Player player2)
+        public PlayerCollision()
         {
-            this.viewModel = viewModel;
-            gameCanvas = canvas;
-            gameSettings = settings;
+            
+        }
+        public void SetPlayers(Player player1, Player player2)
+        {
             Player1 = player1;
             Player2 = player2;
+        }
+        public void SetGameSettings(GameSettings gameSettings)
+        {
+            GameSettings = gameSettings;
+        }
+        public void SetCanvas(Canvas canvas)
+        {
+            GameCanvas = canvas;
+        }
+        public void SetViewModel(GameWindowViewModel viewModel)
+        {
+            _viewModel = viewModel;
         }
         public void CheckPlayerCollision(int player)
         {
@@ -89,20 +102,20 @@ namespace TrackRaces.ViewModels
         public Color GetPixelColor(double playerX, double playerY, double playerAngle)
         {
             // Offset by line thickness
-            double offset = gameSettings.LineThickness * 3.0 / 4.0;
+            double offset = GameSettings.LineThickness * 3.0 / 4.0;
 
             // Coordinates of collision point in front of the player
             double radians = playerAngle * (Math.PI / 180); // Convert degrees to radians
             int collisionX = (int)Math.Round(playerX + offset * Math.Cos(radians));
             int collisionY = (int)Math.Round(playerY + offset * Math.Sin(radians));
             
-            int width = (int)gameCanvas.ActualWidth;
-            int height = (int)gameCanvas.ActualHeight;
+            int width = (int)GameCanvas.ActualWidth;
+            int height = (int)GameCanvas.ActualHeight;
 
             // RenderTargetBitmap with canvas dimensions and standard DPI (96)            
             RenderTargetBitmap rtb = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
 
-            rtb.Render(gameCanvas);
+            rtb.Render(GameCanvas);
 
             // Each pixel has 4 bytes (BGRA)
             int step = width * 4;
@@ -133,7 +146,7 @@ namespace TrackRaces.ViewModels
                 Player2.Score++;
             }
             
-            viewModel.StopAllTimers();
+            _viewModel.StopAllTimers();
 
         }
     }

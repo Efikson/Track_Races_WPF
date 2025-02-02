@@ -12,17 +12,9 @@ namespace TrackRaces.Views
     /// </summary>
     public partial class GameWindow : Window
     {       
-        public GameWindow(GameWindowViewModel gameWindowViewModel)
+        public GameWindow()
         {
-            InitializeComponent();            
-
-            DataContext = gameWindowViewModel; 
-            
-            gameWindowViewModel.SetCanvas(gameCanvas);
-            gameWindowViewModel.SetGameRenderer();
-            gameWindowViewModel.SetPlayerController();
-            gameWindowViewModel.SetPlayerCollision();
-            gameWindowViewModel.SetTimerManager();
+            InitializeComponent();  
         }
 
         private void NewRoundButton_Click (object sender, RoutedEventArgs e)

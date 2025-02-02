@@ -30,13 +30,12 @@ namespace TrackRaces
         private void ConfigureServices(IServiceCollection services)
         {
             // Register ViewModels
-            services.AddSingleton<MainMenuViewModel>();
+            services.AddSingleton<GameRenderer>();
             services.AddSingleton<GameWindowViewModel>();
-            services.AddSingleton<TimerManager>();
-
-            // Register Models
-            services.AddSingleton<GameSettings>();
-            services.AddSingleton<Player>();
+            services.AddSingleton<MainMenuViewModel>();
+            services.AddSingleton<PlayerCollision>();
+            services.AddSingleton<PlayerController>();
+            services.AddSingleton<TimerManager>();   
 
             // Register Views
             services.AddSingleton<MainMenu>();

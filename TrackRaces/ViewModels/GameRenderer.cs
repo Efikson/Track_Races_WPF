@@ -4,29 +4,41 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using TrackRaces.Models;
+using TrackRaces.ViewModels;
 
 namespace TrackRaces.Logic
 {
     public class GameRenderer
     {
-        public Player Player1 { get; private set; }
-        public Player Player2 { get; private set; }
-        private Canvas gameCanvas;
-        private readonly GameSettings gameSettings;
+        private Player Player1;
+        private Player Player2;
+        private GameSettings GameSettings;
+        private Canvas GameCanvas;
         private Random random = new Random();
-
-        public GameRenderer(Canvas canvas, GameSettings settings, Player player1, Player player2)
+        public GameRenderer()
+        {            
+            
+        }
+        public void SetCanvas(Canvas canvas)
         {
-            gameCanvas = canvas;
-            gameSettings = settings;
+            GameCanvas = canvas;
+        }
+
+        public void SetPlayers(Player player1, Player player2)
+        {
             Player1 = player1;
             Player2 = player2;
         }
 
+        public void SetGameSettings(GameSettings gameSettings)
+        {
+            GameSettings = gameSettings;
+        }
+
         public void ResetPlayerPosition()
         {            
-            double canvasWidth = gameCanvas.ActualWidth;
-            double canvasHeight = gameCanvas.ActualHeight;
+            double canvasWidth = GameCanvas.ActualWidth;
+            double canvasHeight = GameCanvas.ActualHeight;
 
             Player1.Position = new Point(canvasWidth * 0.25, canvasHeight * 0.5);
             Player2.Position = new Point(canvasWidth * 0.75, canvasHeight * 0.5);
@@ -44,8 +56,8 @@ namespace TrackRaces.Logic
         private void MovePlayer(Player player)
         {
             double radians = player.Angle * (Math.PI / 180); // Convert degrees to radians
-            double newX = player.Position.X + gameSettings.LineSpeed * 0.75 * Math.Cos(radians);
-            double newY = player.Position.Y + gameSettings.LineSpeed * 0.75 * Math.Sin(radians);
+            double newX = player.Position.X + GameSettings.LineSpeed * 0.75 * Math.Cos(radians);
+            double newY = player.Position.Y + GameSettings.LineSpeed * 0.75 * Math.Sin(radians);
 
             DrawLine(player.Position, new Point(newX, newY), player.Color);
             player.Position = new Point(newX, newY);
@@ -61,9 +73,9 @@ namespace TrackRaces.Logic
                 X2 = end.X,
                 Y2 = end.Y,
                 Stroke = brushColor,
-                StrokeThickness = gameSettings.LineThickness
+                StrokeThickness = GameSettings.LineThickness
             };
-            gameCanvas.Children.Add(line);
+            GameCanvas.Children.Add(line);
         }
     }
 }
