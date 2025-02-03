@@ -139,11 +139,11 @@ namespace TrackRaces.ViewModels
         {
             if (player == 1)
             {
-                Player1.Score++;
+                Player2.Score++;
             }
             else if (player == 2)
             {
-                Player2.Score++;
+                Player1.Score++;
             }
             
             _viewModel.StopAllTimers();
