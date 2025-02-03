@@ -13,33 +13,47 @@ namespace TrackRaces.Logic
 {    
     public class TimerManager : INotifyPropertyChanged
     {
+        private GameWindowViewModel _viewModel;
         private DispatcherTimer countdownTimer;
         private DispatcherTimer bonusTimer;
         private Canvas GameCanvas;
         private Random random = new Random();
         private Ellipse bonusShape;
-        private GameWindowViewModel _viewModel;
 
         private string countdownValue;
         public string CountdownValue
         {
             get => countdownValue;
-            private set { countdownValue = value; OnPropertyChanged(); }
+            set
+            {
+                if (countdownValue != value)
+                {
+                    countdownValue = value;
+                    OnPropertyChanged(nameof(CountdownValue));
+                }
+            }
         }
-
         private int timeUntilBonus;
         public int TimeUntilBonus
         {
             get => timeUntilBonus;
-            private set { timeUntilBonus = value; OnPropertyChanged(); }
+            set
+            {
+                if (timeUntilBonus != value)
+                {
+                    timeUntilBonus = value;
+                    OnPropertyChanged(nameof(timeUntilBonus));
+                }
+            }
         }
-    
+
         public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] String propertyName = "")
+        
+        protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        
+
         public TimerManager()
         {
             
@@ -55,7 +69,7 @@ namespace TrackRaces.Logic
 
         public void StartCountdown()
         {
-            CountdownValue = "1";// Value 1 for testing purposes
+            CountdownValue = "2";// Value 2 for testing purposes
             countdownTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
             countdownTimer.Tick += CountdownTimer_Tick;
             countdownTimer.Start();
@@ -94,8 +108,7 @@ namespace TrackRaces.Logic
                 TimeUntilBonus--;
             }
             else
-            {
-                bonusTimer.Stop();
+            {                
                 TimeUntilBonus = 5;
                 SpawnBonus();
             }

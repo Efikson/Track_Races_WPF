@@ -18,6 +18,7 @@ namespace TrackRaces.ViewModels
         public Player Player1 { get; private set; }
         public Player Player2 { get; private set; }
         public GameSettings GameSettings { get; set; }
+        public int TimeUntilBonus { get; set; }
         private Canvas GameCanvas;
 
         // Declaring dependencies as private fields
@@ -25,9 +26,11 @@ namespace TrackRaces.ViewModels
         private readonly PlayerController _playerController;
         private readonly PlayerCollision _playerCollision;
         private readonly TimerManager _timerManager;
-        
-        private DispatcherTimer gameTickTimer;
 
+        // "forwarding" public property for UI binding
+        public TimerManager TimerManager => _timerManager;
+
+        private DispatcherTimer gameTickTimer;     
         public GameWindowViewModel(GameRenderer gameRenderer,
                                    PlayerController playerController,
                                    PlayerCollision playerCollision,
@@ -36,7 +39,7 @@ namespace TrackRaces.ViewModels
             _gameRenderer = gameRenderer;
             _playerController = playerController;
             _playerCollision = playerCollision;
-            _timerManager = timerManager;            
+            _timerManager = timerManager;           
         }
 
         public void SetPlayers(Player player1, Player player2)
