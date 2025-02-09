@@ -19,6 +19,11 @@ namespace TrackRaces.Logic
         private Canvas GameCanvas;
         private Random random = new Random();
         private Ellipse bonusShape;
+        public Ellipse BonusShape
+        {
+            get => bonusShape;
+            private set => bonusShape = value;
+        }
 
         private string countdownValue;
         public string CountdownValue
@@ -33,6 +38,7 @@ namespace TrackRaces.Logic
                 }
             }
         }
+
         private int timeUntilBonus;
         public int TimeUntilBonus
         {
@@ -133,7 +139,13 @@ namespace TrackRaces.Logic
             Canvas.SetLeft(bonusShape, x);
             Canvas.SetTop(bonusShape, y);
         }
-        
+
+        public void RemoveBonus()
+        {           
+            GameCanvas.Children.Remove(bonusShape);
+            bonusShape = null;            
+        }
+
         public void StopTimers()
         {
             countdownTimer.Stop();

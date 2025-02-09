@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Numerics;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Documents;
+using TrackRaces.Logic;
 
 namespace TrackRaces.ViewModels
 {
@@ -23,9 +25,10 @@ namespace TrackRaces.ViewModels
         private GameSettings GameSettings;     
         private GameWindowViewModel _viewModel;
         private Random random = new Random();
-        public PlayerCollision()
+        private readonly TimerManager _timerManager;        
+        public PlayerCollision(TimerManager timerManager)
         {
-            
+            _timerManager = timerManager;
         }
         public void SetPlayers(Player player1, Player player2)
         {
@@ -97,8 +100,21 @@ namespace TrackRaces.ViewModels
                 else
                     MessageBox.Show(playerName + " hit the green border.");
             }
-        }
+            else if (pixelColor == Colors.Gold)
+            {
+                if (player == 1)
+                {
+                    Player1.JumpCollected = true;
+                }
+                else if (player == 2)
+                {
+                    Player2.JumpCollected = true;
+                }
 
+                _timerManager.RemoveBonus();                               
+            }    
+        }
+        
         public Color GetPixelColor(double playerX, double playerY, double playerAngle)
         {
             // Offset by line thickness
