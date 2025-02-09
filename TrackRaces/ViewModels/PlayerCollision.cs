@@ -47,19 +47,19 @@ namespace TrackRaces.ViewModels
         {
             _viewModel = viewModel;
         }
-        public void CheckPlayerCollision(int player)
+        public void CheckPlayerCollision(Player player)
         {
             double playerX, playerY, playerAngle;
             string playerName;
             
-            if (player == 1)
+            if (player == Player1)
             {
                 playerX = Player1.Position.X;
                 playerY = Player1.Position.Y;
                 playerAngle = Player1.Angle;
                 playerName = Player1.Name;
             }
-            else if (player == 2)
+            else if (player == Player2)
             {
                 playerX = Player2.Position.X;
                 playerY = Player2.Position.Y;
@@ -78,7 +78,7 @@ namespace TrackRaces.ViewModels
             // Collisions control by pixel color
             if (pixelColor == Colors.Red)
             {
-                HandleCollison(player);
+                HandleCollision(player);
                 if (randomMessage == 0)
                     MessageBox.Show(playerName + " got tricked.");
                 else
@@ -86,7 +86,7 @@ namespace TrackRaces.ViewModels
             }
             else if (pixelColor == Colors.Blue)
             {
-                HandleCollison(player);
+                HandleCollision(player);
                 if (randomMessage == 0)
                     MessageBox.Show(playerName + " got fooled.");
                 else
@@ -94,7 +94,7 @@ namespace TrackRaces.ViewModels
             }
             else if (pixelColor == Colors.Green)
             {
-                HandleCollison(player);
+                HandleCollision(player);
                 if (randomMessage == 0)
                     MessageBox.Show(playerName + " wanted to go to windows.");
                 else
@@ -102,11 +102,11 @@ namespace TrackRaces.ViewModels
             }
             else if (pixelColor == Colors.Gold)
             {
-                if (player == 1)
+                if (player == Player1)
                 {
                     Player1.JumpCollected = true;
                 }
-                else if (player == 2)
+                else if (player == Player2)
                 {
                     Player2.JumpCollected = true;
                 }
@@ -151,19 +151,49 @@ namespace TrackRaces.ViewModels
             return Color.FromArgb(alpha, red, green, blue);
         }
 
-        public void HandleCollison(int player)
+        public void HandleCollision(Player player)
         {
-            if (player == 1)
+            if (player == Player1)
             {
                 Player2.Score++;
             }
-            else if (player == 2)
+            else if (player == Player2)
             {
                 Player1.Score++;
             }
-            
-            _viewModel.StopAllTimers();
 
+            _viewModel.StopAllTimers();
         }
+
+        public void CheckJumpCollision(Player player)
+        {
+            string playerName;
+
+            if (player == Player1)
+            {  
+                playerName = Player1.Name;
+            }
+            else if (player == Player2)
+            {
+                playerName = Player2.Name;
+            }
+            else
+            {
+                return;
+            }
+
+            if (IsOutOfBounds(player.Position))
+            {
+                HandleCollision(player);
+                MessageBox.Show(playerName + " wanted to run away cowardly.");
+            }
+        }
+        private bool IsOutOfBounds(Point position)
+        {
+            return position.X < 0 || position.Y < 0 ||
+                   position.X > GameCanvas.ActualWidth ||
+                   position.Y > GameCanvas.ActualHeight;
+        }
+
     }
 }

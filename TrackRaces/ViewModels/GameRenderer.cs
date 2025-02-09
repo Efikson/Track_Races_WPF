@@ -49,7 +49,7 @@ namespace TrackRaces.Logic
 
         public void ResetPlayerBonus()
         {
-            Player1.JumpCollected = false;
+            Player1.JumpCollected = true;
             Player2.JumpCollected = false;
         }
 
@@ -84,6 +84,21 @@ namespace TrackRaces.Logic
             };
             GameCanvas.Children.Add(line);
         }
+
+        public void ProcessJump(Player player)
+        {
+            const int JumpRange = 50; 
+
+            if (player.JumpCollected)
+            {
+                double radians = player.Angle * (Math.PI / 180); // Convert degrees to radians
+                double newX = player.Position.X + JumpRange * Math.Cos(radians);
+                double newY = player.Position.Y + JumpRange * Math.Sin(radians);
+                player.Position = new Point(newX, newY);
+                player.JumpCollected = false;
+            }
+        }
+
 
         public void RemovePlayerTracks()
         {

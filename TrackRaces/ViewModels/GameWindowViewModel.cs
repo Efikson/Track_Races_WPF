@@ -81,8 +81,8 @@ namespace TrackRaces.ViewModels
 
         private void GameTickTimer_Tick(object sender, EventArgs e)
         {
-            _playerCollision.CheckPlayerCollision(1);
-            _playerCollision.CheckPlayerCollision(2);
+            _playerCollision.CheckPlayerCollision(Player1);
+            _playerCollision.CheckPlayerCollision(Player2);
             _playerController.UpdatePlayerMovements();
             _gameRenderer.UpdatePlayerPositions(Player1, Player2);
         }
