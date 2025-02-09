@@ -47,6 +47,12 @@ namespace TrackRaces.Logic
             Player2.Angle = random.Next(0, 360);
         }
 
+        public void ResetPlayerBonus()
+        {
+            Player1.JumpCollected = false;
+            Player2.JumpCollected = false;
+        }
+
         public void UpdatePlayerPositions(Player player1, Player player2)
         {
             MovePlayer(Player1);
@@ -73,9 +79,25 @@ namespace TrackRaces.Logic
                 X2 = end.X,
                 Y2 = end.Y,
                 Stroke = brushColor,
-                StrokeThickness = GameSettings.LineThickness
+                StrokeThickness = GameSettings.LineThickness,
+                Tag = "PlayerLine"
             };
             GameCanvas.Children.Add(line);
         }
+
+        public void RemovePlayerTracks()
+        {
+            // Find all lines with tag: PlayerLine
+            var playerLines = GameCanvas.Children
+                .OfType<Line>()
+                .Where(line => line.Tag.ToString() == "PlayerLine")
+                .ToList(); 
+          
+            foreach (var line in playerLines)
+            {
+                GameCanvas.Children.Remove(line);
+            }
+        }
+
     }
 }

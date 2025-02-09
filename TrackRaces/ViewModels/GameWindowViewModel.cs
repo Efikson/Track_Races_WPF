@@ -88,8 +88,10 @@ namespace TrackRaces.ViewModels
         }
         
         public void StartGame()
-        {
+        {   
+            _gameRenderer.RemovePlayerTracks();
             _gameRenderer.ResetPlayerPosition();
+            _gameRenderer.ResetPlayerBonus();
             StartGameTickTimer();
         }
 
