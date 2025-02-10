@@ -29,6 +29,7 @@ namespace TrackRaces.Views
         {
             if (DataContext is GameWindowViewModel viewModel)
             {
+                viewModel.StopAllTimers();
                 viewModel.ReturnToMainMenu();
             }
         }

@@ -50,7 +50,7 @@ namespace TrackRaces.Logic
                 _gameRenderer.ProcessJump(Player1);
                 _playerCollision.CheckJumpCollision(Player1);
             }
-            if (Keyboard.IsKeyDown(Key.L))
+            if (Keyboard.IsKeyDown(Key.NumPad0))
             {
                 _gameRenderer.ProcessJump(Player2);
                 _playerCollision.CheckJumpCollision(Player2);

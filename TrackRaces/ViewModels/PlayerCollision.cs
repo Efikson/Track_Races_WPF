@@ -112,7 +112,7 @@ namespace TrackRaces.ViewModels
                 }
 
                 _timerManager.RemoveBonus();                               
-            }    
+            }           
         }
         
         public Color GetPixelColor(double playerX, double playerY, double playerAngle)
@@ -122,8 +122,8 @@ namespace TrackRaces.ViewModels
 
             // Coordinates of collision point in front of the player
             double radians = playerAngle * (Math.PI / 180); // Convert degrees to radians
-            int collisionX = (int)Math.Round(playerX + offset * Math.Cos(radians));
-            int collisionY = (int)Math.Round(playerY + offset * Math.Sin(radians));
+            int collisionX = (int)(playerX + offset * Math.Cos(radians));
+            int collisionY = (int)(playerY + offset * Math.Sin(radians));
             
             int width = (int)GameCanvas.ActualWidth;
             int height = (int)GameCanvas.ActualHeight;
@@ -188,12 +188,12 @@ namespace TrackRaces.ViewModels
                 MessageBox.Show(playerName + " wanted to run away cowardly.");
             }
         }
+
         private bool IsOutOfBounds(Point position)
         {
             return position.X < 0 || position.Y < 0 ||
                    position.X > GameCanvas.ActualWidth ||
                    position.Y > GameCanvas.ActualHeight;
         }
-
     }
 }

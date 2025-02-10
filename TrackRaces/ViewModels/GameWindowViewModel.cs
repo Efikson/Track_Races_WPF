@@ -74,7 +74,7 @@ namespace TrackRaces.ViewModels
         public void StartGameTickTimer()
         {
             gameTickTimer = new DispatcherTimer();
-            gameTickTimer.Interval = TimeSpan.FromMilliseconds(16.66); // 33.33 - 30 FPS || 16.66 - 60 FPS
+            gameTickTimer.Interval = TimeSpan.FromMilliseconds(33.33); // 33.33 - 30 FPS || 16.66 - 60 FPS
             gameTickTimer.Tick += GameTickTimer_Tick;
             gameTickTimer.Start();
         }
@@ -83,6 +83,7 @@ namespace TrackRaces.ViewModels
         {
             _playerCollision.CheckPlayerCollision(Player1);
             _playerCollision.CheckPlayerCollision(Player2);
+            CheckWinCondition();
             _playerController.UpdatePlayerMovements();
             _gameRenderer.UpdatePlayerPositions(Player1, Player2);
         }
@@ -120,5 +121,19 @@ namespace TrackRaces.ViewModels
             gameTickTimer.Stop();
             _timerManager.StopTimers();
         }
+
+        public void CheckWinCondition()
+        {
+            if (Player1.Score >= GameSettings.TargetScore)
+            {
+                MessageBox.Show($"{Player1.Name} wins!");
+                ReturnToMainMenu();
+            }
+            else if (Player2.Score >= GameSettings.TargetScore)
+            {
+                MessageBox.Show($"{Player2.Name} wins!");
+                ReturnToMainMenu();
+            }
+    }
     }
 }

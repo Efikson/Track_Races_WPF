@@ -49,7 +49,7 @@ namespace TrackRaces.Logic
 
         public void ResetPlayerBonus()
         {
-            Player1.JumpCollected = true;
+            Player1.JumpCollected = false;
             Player2.JumpCollected = false;
         }
 
