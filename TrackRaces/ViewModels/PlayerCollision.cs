@@ -25,6 +25,7 @@ namespace TrackRaces.ViewModels
         private GameSettings GameSettings;     
         private GameWindowViewModel _viewModel;
         private Random random = new Random();
+        private RenderTargetBitmap _cachedBitmap;
         private readonly TimerManager _timerManager;        
         public PlayerCollision(TimerManager timerManager)
         {
@@ -114,32 +115,36 @@ namespace TrackRaces.ViewModels
                 _timerManager.RemoveBonus();                               
             }           
         }
-        
+
         public Color GetPixelColor(double playerX, double playerY, double playerAngle)
         {
             // Offset by line thickness
-            double offset = GameSettings.LineThickness * 3.0 / 4.0;
+            double offset = GameSettings.LineThickness * 0.75;
 
             // Coordinates of collision point in front of the player
-            double radians = playerAngle * (Math.PI / 180); // Convert degrees to radians
+            double radians = playerAngle * (Math.PI / 180);            
             int collisionX = (int)(playerX + offset * Math.Cos(radians));
             int collisionY = (int)(playerY + offset * Math.Sin(radians));
             
             int width = (int)GameCanvas.ActualWidth;
             int height = (int)GameCanvas.ActualHeight;
 
-            // RenderTargetBitmap with canvas dimensions and standard DPI (96)            
-            RenderTargetBitmap rtb = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
+            // RenderTargetBitmap with canvas dimensions and standard DPI (96) 
+            if (_cachedBitmap == null)
+            {
+                _cachedBitmap = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
+            }
 
-            rtb.Render(GameCanvas);
+            // Update bitmap contents
+            _cachedBitmap.Render(GameCanvas);
 
             // Each pixel has 4 bytes (BGRA)
-            int step = width * 4;
-            byte[] pixelData = new byte[height * step];
-            rtb.CopyPixels(pixelData, step, 0);
+            int stride = width * 4;
+            byte[] pixelData = new byte[height * stride];
+            _cachedBitmap.CopyPixels(pixelData, stride, 0);
 
             // Index for the desired pixel
-            int index = collisionY * step + collisionX * 4;
+            int index = collisionY * stride + collisionX * 4;
             if (index + 3 >= pixelData.Length)
                 return Colors.Transparent;
 

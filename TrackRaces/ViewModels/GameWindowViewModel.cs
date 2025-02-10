@@ -87,7 +87,7 @@ namespace TrackRaces.ViewModels
             _playerController.UpdatePlayerMovements();
             _gameRenderer.UpdatePlayerPositions(Player1, Player2);
         }
-        
+
         public void StartGame()
         {   
             _gameRenderer.RemovePlayerTracks();
