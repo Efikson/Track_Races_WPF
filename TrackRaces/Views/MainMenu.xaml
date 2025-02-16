@@ -13,12 +13,12 @@
     <Grid>
         <!-- Player 1 Name -->
         <Label Content="Player One Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0" />
-        <TextBox Text="{Binding Player1.Name}" MaxLength="20" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="150,20,0,0" />
+        <TextBox Text="{Binding Player1.Name}" MaxLength="18" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="150,20,0,0" />
         <TextBlock Text="Q | A D" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="360,20,0,0" />
 
         <!-- Player 2 Name -->
         <Label Content="Player Two Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,60,0,0" />
-        <TextBox Text="{Binding Player2.Name}" MaxLength="20" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="150,60,0,0" />
+        <TextBox Text="{Binding Player2.Name}" MaxLength="18" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="150,60,0,0" />
         <TextBlock Text="0 | ← →" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="360,60,0,0" />
 
         <!-- Line Thickness -->

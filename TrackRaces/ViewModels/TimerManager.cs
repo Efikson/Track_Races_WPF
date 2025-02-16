@@ -72,10 +72,10 @@ namespace TrackRaces.Logic
         {
             _viewModel = viewModel;
         }
-
+        
         public void StartCountdown()
         {
-            CountdownValue = "2";// Value 2 for testing purposes
+            CountdownValue = "3";
             countdownTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
             countdownTimer.Tick += CountdownTimer_Tick;
             countdownTimer.Start();

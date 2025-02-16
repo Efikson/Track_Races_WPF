@@ -30,7 +30,8 @@ namespace TrackRaces.ViewModels
         // "forwarding" public property for UI binding
         public TimerManager TimerManager => _timerManager;
 
-        private DispatcherTimer gameTickTimer;     
+        private DispatcherTimer gameTickTimer;  
+        
         public GameWindowViewModel(GameRenderer gameRenderer,
                                    PlayerController playerController,
                                    PlayerCollision playerCollision,
@@ -65,6 +66,7 @@ namespace TrackRaces.ViewModels
             _timerManager.SetCanvas(canvas);
             _playerCollision.SetCanvas(canvas);
         }
+
         public void SetViewModel(GameWindowViewModel viewModel)
         {
             _timerManager.SetViewModel(this);
@@ -82,8 +84,7 @@ namespace TrackRaces.ViewModels
         private void GameTickTimer_Tick(object sender, EventArgs e)
         {
             _playerCollision.CheckPlayerCollision(Player1);
-            _playerCollision.CheckPlayerCollision(Player2);            
-            CheckWinCondition();
+            _playerCollision.CheckPlayerCollision(Player2);   
             _playerController.UpdatePlayerMovements();
             _gameRenderer.UpdatePlayerPositions(Player1, Player2);
         }
@@ -109,12 +110,12 @@ namespace TrackRaces.ViewModels
 
         public void StartCountdownTimer()
         {
-            _timerManager.StartCountdown();
-        }
-
-        public void StartBonusTimer()
-        {
-            _timerManager.StartBonusTimer();
+            if (_playerCollision.GameOver == true)
+            {
+                _playerCollision.GameOver = false;
+                _timerManager.StartCountdown();
+                _timerManager.StartBonusTimer();
+            }            
         }
         
         public void StopAllTimers()
@@ -135,6 +136,6 @@ namespace TrackRaces.ViewModels
                 MessageBox.Show($"{Player2.Name} wins!");
                 ReturnToMainMenu();
             }
-    }
+        }
     }
 }

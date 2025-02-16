@@ -30,23 +30,29 @@ namespace TrackRaces.ViewModels
         private RenderTargetBitmap _cachedBitmap;
         private readonly TimerManager _timerManager;    
         private bool CollisionDetected = false;
+        public bool GameOver { get; set; } = true;
+
         public PlayerCollision(TimerManager timerManager)
         {
             _timerManager = timerManager;
         }
+
         public void SetPlayers(Player player1, Player player2)
         {
             Player1 = player1;
             Player2 = player2;
         }
+
         public void SetGameSettings(GameSettings gameSettings)
         {
             GameSettings = gameSettings;
         }
+
         public void SetCanvas(Canvas canvas)
         {
             GameCanvas = canvas;
         }
+
         public void SetViewModel(GameWindowViewModel viewModel)
         {
             _viewModel = viewModel;
@@ -86,6 +92,7 @@ namespace TrackRaces.ViewModels
                 CollisionDetected = false;
             }
         }
+
         public void CheckCollisionAtPoint(double playerX, double playerY, double playerAngle)
         {
             // Offset by line thickness
@@ -155,27 +162,27 @@ namespace TrackRaces.ViewModels
 
             if (pixelColor == Colors.Red)
             {
-                HandleCollision(player);
                 if (randomMessage == 0)
                     MessageBox.Show(playerName + " got tricked.");
                 else
                     MessageBox.Show(playerName + " hit the red thin line.");
+                HandleCollision(player);
             }
             else if (pixelColor == Colors.Blue)
             {
-                HandleCollision(player);
                 if (randomMessage == 0)
                     MessageBox.Show(playerName + " got fooled.");
                 else
                     MessageBox.Show(playerName + " hit the blue track.");
+                HandleCollision(player);
             }
             else if (pixelColor == Colors.Green)
             {
-                HandleCollision(player);
                 if (randomMessage == 0)
                     MessageBox.Show(playerName + " wanted to go to windows.");
                 else
                     MessageBox.Show(playerName + " hit the green border.");
+                HandleCollision(player);
             }
             else if (pixelColor == Colors.Gold)
             {
@@ -201,9 +208,11 @@ namespace TrackRaces.ViewModels
             else if (player == Player2)
             {
                 Player1.Score++;
-            }  
-            
+            }
+            GameOver = true;
             _viewModel.StopAllTimers();
+            _viewModel.CheckWinCondition();
+            _timerManager.CountdownValue = "Press ENTER for a new round";
         }
 
         public void CheckJumpCollision(Player player)
@@ -225,8 +234,8 @@ namespace TrackRaces.ViewModels
 
             if (IsOutOfBounds(player.Position))
             {
+                MessageBox.Show(playerName + " wanted to run away cowardly.");
                 HandleCollision(player);
-                MessageBox.Show(playerName + " wanted to run away cowardly.");                
             }
         }
 

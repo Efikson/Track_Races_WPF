@@ -110,7 +110,6 @@ namespace TrackRaces.Logic
             }
         }
 
-
         public void RemovePlayerTracks()
         {
             // Find all lines with tag: PlayerLine
@@ -124,6 +123,5 @@ namespace TrackRaces.Logic
                 GameCanvas.Children.Remove(ellipse);
             }
         }
-
     }
 }

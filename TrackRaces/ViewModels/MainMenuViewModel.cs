@@ -34,8 +34,7 @@ namespace TrackRaces.ViewModels
 
             gameWindowViewModel.SetCanvas(gameWindow.GameCanvas);
             gameWindowViewModel.SetViewModel(gameWindowViewModel);
-            gameWindowViewModel.StartCountdownTimer();
-            gameWindowViewModel.StartBonusTimer();
+            gameWindowViewModel.StartCountdownTimer();        
 
             gameWindow.Show();
         }   

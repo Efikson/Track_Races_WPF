@@ -20,6 +20,7 @@ namespace TrackRaces.Logic
             _gameRenderer = gameRenderer;
             _playerCollision = playerCollision;
         }
+
         public void SetPlayers(Player player1, Player player2)
         {
             Player1 = player1;
@@ -61,6 +62,5 @@ namespace TrackRaces.Logic
         {
             player.Angle += angleChange;
         }
-
     }
 }
