@@ -4,6 +4,7 @@ using TrackRaces.ViewModels;
 using TrackRaces.Models;
 using TrackRaces.Views;
 using Microsoft.Extensions.DependencyInjection;
+using TrackRaces.Logic;
 
 
 namespace TrackRaces.Views
@@ -28,10 +29,9 @@ namespace TrackRaces.Views
             }
         }
         private void StartGameButton_Click(object sender, RoutedEventArgs e)
-        {
+        {         
             // Get access to the ViewModel
-            var mainMenuViewModel = (MainMenuViewModel)DataContext;
-           
+            var mainMenuViewModel = (MainMenuViewModel)DataContext;           
             mainMenuViewModel.StartGameWindow();
 
             // Hide main menu

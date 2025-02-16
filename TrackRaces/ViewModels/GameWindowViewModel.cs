@@ -14,59 +14,65 @@ namespace TrackRaces.ViewModels
 {
     public class GameWindowViewModel
     {
+        // Public properties for data binding
         public Player Player1 { get; private set; }
         public Player Player2 { get; private set; }
-        public GameSettings GameSettings { get; private set; }
+        public GameSettings GameSettings { get; set; }
+        public int TimeUntilBonus { get; set; }
+        private Canvas GameCanvas;
 
-        // Other components
-        public GameRenderer GameRenderer;
-        public PlayerController PlayerController;
-        public PlayerCollision PlayerCollision;
-        public TimerManager TimerManager;
-       
-        private Canvas gameCanvas;
-        private DispatcherTimer gameTickTimer;
+        // Declaring dependencies as private fields
+        private readonly GameRenderer _gameRenderer;
+        private readonly PlayerController _playerController;
+        private readonly PlayerCollision _playerCollision;
+        private readonly TimerManager _timerManager;
 
-        public GameWindowViewModel()
-        {
-            
+        // "forwarding" public property for UI binding
+        public TimerManager TimerManager => _timerManager;
+
+        private DispatcherTimer gameTickTimer;  
+        
+        public GameWindowViewModel(GameRenderer gameRenderer,
+                                   PlayerController playerController,
+                                   PlayerCollision playerCollision,
+                                   TimerManager timerManager)
+        {                        
+            _gameRenderer = gameRenderer;
+            _playerController = playerController;
+            _playerCollision = playerCollision;
+            _timerManager = timerManager;           
         }
 
         public void SetPlayers(Player player1, Player player2)
         {
             Player1 = player1;
             Player2 = player2;
+            _gameRenderer.SetPlayers(player1, player2);
+            _playerController.SetPlayers(player1, player2);
+            _playerCollision.SetPlayers(player1, player2);
         }
 
-        public void SetGameSettings(GameSettings settings)
+        public void SetGameSettings(GameSettings gameSettings)
         {
-            GameSettings = settings;
+            GameSettings = gameSettings;
+            _gameRenderer.SetGameSettings(gameSettings);
+            _playerCollision.SetGameSettings(gameSettings);
         }
 
         public void SetCanvas(Canvas canvas)
         {
-            gameCanvas = canvas;           
+            GameCanvas = canvas;
+            _gameRenderer.SetCanvas(canvas);
+            _timerManager.SetCanvas(canvas);
+            _playerCollision.SetCanvas(canvas);
         }
 
-        public void SetGameRenderer()
+        public void SetViewModel(GameWindowViewModel viewModel)
         {
-            GameRenderer = new GameRenderer(gameCanvas, GameSettings, Player1, Player2);
+            _timerManager.SetViewModel(this);
+            _playerCollision.SetViewModel(this);
         }
 
-        public void SetPlayerController()
-        {
-            PlayerController = new PlayerController(Player1, Player2);
-        }
-
-        public void SetPlayerCollision()
-        {
-            PlayerCollision = new PlayerCollision(this, gameCanvas, GameSettings, Player1, Player2);
-        }
-        public void SetTimerManager()
-        {
-            TimerManager = new TimerManager(this, gameCanvas);
-        }
-        
         public void StartGameTickTimer()
         {
             gameTickTimer = new DispatcherTimer();
@@ -77,20 +83,23 @@ namespace TrackRaces.ViewModels
 
         private void GameTickTimer_Tick(object sender, EventArgs e)
         {
-            PlayerCollision.CheckPlayerCollision(1);
-            PlayerCollision.CheckPlayerCollision(2);
-            PlayerController.UpdatePlayerMovements();
-            GameRenderer.UpdatePlayerPositions(Player1, Player2);
+            _playerCollision.CheckPlayerCollision(Player1);
+            _playerCollision.CheckPlayerCollision(Player2);   
+            _playerController.UpdatePlayerMovements();
+            _gameRenderer.UpdatePlayerPositions(Player1, Player2);
         }
 
-        // Metoda, která se spustí po dokončení odpočtu (z BonusManageru)
         public void StartGame()
-        {
-            GameRenderer.ResetPlayerPosition();
+        {   
+            _gameRenderer.RemovePlayerTracks();
+            _gameRenderer.ResetPlayerPosition();
+            _gameRenderer.ResetPlayerBonus();            
             StartGameTickTimer();
         }
+
         public void ReturnToMainMenu()
         {
+            _gameRenderer.ResetPlayerScore();
             var mainMenu = App.ServiceProvider.GetRequiredService<MainMenu>();
             mainMenu.Show();
 
@@ -101,18 +110,32 @@ namespace TrackRaces.ViewModels
 
         public void StartCountdownTimer()
         {
-            TimerManager.StartCountdown();
-        }
-
-        public void StartBonusTimer()
-        {
-            TimerManager.StartBonusTimer();
+            if (_playerCollision.GameOver == true)
+            {
+                _playerCollision.GameOver = false;
+                _timerManager.StartCountdown();
+                _timerManager.StartBonusTimer();
+            }            
         }
         
         public void StopAllTimers()
         {
             gameTickTimer.Stop();
-            TimerManager.StopTimers();            
+            _timerManager.StopTimers();
+        }
+
+        public void CheckWinCondition()
+        {
+            if (Player1.Score >= GameSettings.TargetScore)
+            {
+                MessageBox.Show($"{Player1.Name} wins!");
+                ReturnToMainMenu();
+            }
+            else if (Player2.Score >= GameSettings.TargetScore)
+            {
+                MessageBox.Show($"{Player2.Name} wins!");
+                ReturnToMainMenu();
+            }
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class GameSettings
     {
-        public int LineThickness { get; set; } = 5;
+        public int LineThickness { get; set; } = 6;
         public int LineSpeed { get; set; } = 5;     
         public int TargetScore { get; set; } = 7;  
     }

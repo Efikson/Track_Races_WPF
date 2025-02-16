@@ -9,14 +9,22 @@ namespace TrackRaces.Logic
 {
     public class PlayerController
     {
-        private readonly Player Player1;
-        private readonly Player Player2;       
+        private Player Player1;
+        private Player Player2;       
         public double TurnSpeed { get; set; } = 5.0;
+        private readonly GameRenderer _gameRenderer;
+        private readonly PlayerCollision _playerCollision;
 
-        public PlayerController(Player Player1, Player Player2)
+        public PlayerController(GameRenderer gameRenderer, PlayerCollision playerCollision)
         {
-            this.Player1 = Player1;
-            this.Player2 = Player2;            
+            _gameRenderer = gameRenderer;
+            _playerCollision = playerCollision;
+        }
+
+        public void SetPlayers(Player player1, Player player2)
+        {
+            Player1 = player1;
+            Player2 = player2;
         }
 
         public void UpdatePlayerMovements()
@@ -38,12 +46,21 @@ namespace TrackRaces.Logic
             {
                 RotatePlayer(Player2, TurnSpeed);
             }
+            if (Keyboard.IsKeyDown(Key.Q))
+            {
+                _gameRenderer.ProcessJump(Player1);
+                _playerCollision.CheckJumpCollision(Player1);
+            }
+            if (Keyboard.IsKeyDown(Key.NumPad0))
+            {
+                _gameRenderer.ProcessJump(Player2);
+                _playerCollision.CheckJumpCollision(Player2);
+            }
         }
 
         private void RotatePlayer(Player player, double angleChange)
         {
             player.Angle += angleChange;
         }
-
     }
 }

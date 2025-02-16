@@ -8,7 +8,8 @@
         Title="GameWindow"
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        KeyDown="Window_KeyDown">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -16,7 +17,7 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="60"/>
             <RowDefinition Height="100"/>
-            <RowDefinition Height="auto"/>            
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -24,7 +25,7 @@
             <ColumnDefinition Width="150"/>
         </Grid.ColumnDefinitions>
 
-        <Canvas x:Name="gameCanvas" Grid.Row="0" Grid.Column="0" Grid.RowSpan="8" Background="White" Height="500">
+        <Canvas x:Name="GameCanvas" Grid.Row="0" Grid.Column="0" Grid.RowSpan="8" Background="White" Height="500">
             <!-- Green border -->
             <Rectangle 
             Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Canvas}}" 
@@ -32,20 +33,21 @@
             Stroke="Green" StrokeThickness="10"/>
 
             <TextBlock x:Name="CountdownValue"
-           FontSize="40"
-           HorizontalAlignment="Center"
-           VerticalAlignment="Center"
+           FontSize="40"           
+           TextAlignment="Center"
            Visibility="Visible"
            Text="{Binding TimerManager.CountdownValue}"
-           Canvas.Left="375"
-           Canvas.Top="220"/>
+           Canvas.Left="10"
+           Canvas.Top="220" Width="730">
+            </TextBlock>
+
         </Canvas>
 
 
         <!-- Player 1 Information -->
         <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="center" Margin="0,10,0,10">
-            <Label Content="Red" Foreground="Red" HorizontalAlignment="Center" FontSize="18"/>
-            <Label Content="{Binding Player1.Name}" HorizontalAlignment="Center"/>
+            <Label Content="Red" Foreground="Red" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+            <Label Content="{Binding Player1.Name}" HorizontalAlignment="Center" FontSize="17"/>
             <TextBlock HorizontalAlignment="Center">
                 Score: <Run Text="{Binding Player1.Score}"/>
             </TextBlock>
@@ -54,8 +56,8 @@
 
         <!-- Player 2 Information -->
         <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center" Margin="0,10,0,10">
-            <Label Content="Blue" Foreground="Blue" HorizontalAlignment="Center" FontSize="18"/>
-            <Label Content="{Binding Player2.Name}" HorizontalAlignment="Center"/>
+            <Label Content="Blue" Foreground="Blue" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+            <Label Content="{Binding Player2.Name}" HorizontalAlignment="Center" FontSize="17"/>
             <TextBlock HorizontalAlignment="Center">
                 Score: <Run Text="{Binding Player2.Score}"/>
             </TextBlock>
@@ -76,7 +78,7 @@
             <Label Content="Time Until Bonus" HorizontalAlignment="Center"/>
             <TextBlock HorizontalAlignment="Center" FontSize="20">
                  <Run Text="{Binding TimerManager.TimeUntilBonus}" />
-            </TextBlock>            
+            </TextBlock>
         </StackPanel>
     </Grid>
 

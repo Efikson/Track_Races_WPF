@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
+using TrackRaces.Logic;
 using TrackRaces.ViewModels;
 
 namespace TrackRaces.Views
@@ -12,32 +13,35 @@ namespace TrackRaces.Views
     /// </summary>
     public partial class GameWindow : Window
     {       
-        public GameWindow(GameWindowViewModel gameWindowViewModel)
+        public GameWindow()
         {
-            InitializeComponent();            
-
-            DataContext = gameWindowViewModel; 
-            
-            gameWindowViewModel.SetCanvas(gameCanvas);
-            gameWindowViewModel.SetGameRenderer();
-            gameWindowViewModel.SetPlayerController();
-            gameWindowViewModel.SetPlayerCollision();
-            gameWindowViewModel.SetTimerManager();
+            InitializeComponent();  
         }
 
         private void NewRoundButton_Click (object sender, RoutedEventArgs e)
         {
             if (DataContext is GameWindowViewModel viewModel)
-            {
-                viewModel.StartCountdownTimer();
-                viewModel.StartBonusTimer();
+            {                
+                viewModel.StartCountdownTimer();                
             }
         }
         private void ReturnToMenu_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is GameWindowViewModel viewModel)
-            {
+            {                
+                viewModel.StopAllTimers();
                 viewModel.ReturnToMainMenu();
+            }
+        }
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                NewRoundButton_Click(sender, e);
+            }
+            if (e.Key == Key.Escape)
+            {
+                ReturnToMenu_Click(sender, e);
             }
         }
 
