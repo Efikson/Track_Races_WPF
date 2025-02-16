@@ -14,6 +14,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Documents;
 using TrackRaces.Logic;
+using System.Windows.Shapes;
+using System.Security.Cryptography.X509Certificates;
 
 namespace TrackRaces.ViewModels
 {
@@ -26,7 +28,8 @@ namespace TrackRaces.ViewModels
         private GameWindowViewModel _viewModel;
         private Random random = new Random();
         private RenderTargetBitmap _cachedBitmap;
-        private readonly TimerManager _timerManager;        
+        private readonly TimerManager _timerManager;    
+        private bool CollisionDetected = false;
         public PlayerCollision(TimerManager timerManager)
         {
             _timerManager = timerManager;
@@ -48,11 +51,12 @@ namespace TrackRaces.ViewModels
         {
             _viewModel = viewModel;
         }
+
         public void CheckPlayerCollision(Player player)
         {
             double playerX, playerY, playerAngle;
             string playerName;
-            
+
             if (player == Player1)
             {
                 playerX = Player1.Position.X;
@@ -68,52 +72,82 @@ namespace TrackRaces.ViewModels
                 playerName = Player2.Name;
             }
             else
-            {                
+            {
                 return;
             }
 
             int randomMessage = random.Next(0, 2);
+            
+            CheckCollisionAtPoint(playerX, playerY, playerAngle);
 
-            Color pixelColor = GetPixelColor(playerX, playerY, playerAngle);
-
-            // Collisions control by pixel color
-            if (pixelColor == Colors.Red)
+            // Analyze collision via bitmap
+            if (CollisionDetected)
             {
-                HandleCollision(player);
-                if (randomMessage == 0)
-                    MessageBox.Show(playerName + " got tricked.");
-                else
-                    MessageBox.Show(playerName + " hit the red thin line.");
-            }
-            else if (pixelColor == Colors.Blue)
-            {
-                HandleCollision(player);
-                if (randomMessage == 0)
-                    MessageBox.Show(playerName + " got fooled.");
-                else
-                    MessageBox.Show(playerName + " hit the blue track.");
-            }
-            else if (pixelColor == Colors.Green)
-            {
-                HandleCollision(player);
-                if (randomMessage == 0)
-                    MessageBox.Show(playerName + " wanted to go to windows.");
-                else
-                    MessageBox.Show(playerName + " hit the green border.");
-            }
-            else if (pixelColor == Colors.Gold)
-            {
-                if (player == Player1)
+                Color pixelColor = GetPixelColor(playerX, playerY, playerAngle);
+                
+                if (pixelColor == Colors.Red)
                 {
-                    Player1.JumpCollected = true;
+                    HandleCollision(player);
+                    if (randomMessage == 0)
+                        MessageBox.Show(playerName + " got tricked.");
+                    else
+                        MessageBox.Show(playerName + " hit the red thin line.");
                 }
-                else if (player == Player2)
+                else if (pixelColor == Colors.Blue)
                 {
-                    Player2.JumpCollected = true;
+                    HandleCollision(player);
+                    if (randomMessage == 0)
+                        MessageBox.Show(playerName + " got fooled.");
+                    else
+                        MessageBox.Show(playerName + " hit the blue track.");
                 }
+                else if (pixelColor == Colors.Green)
+                {
+                    HandleCollision(player);
+                    if (randomMessage == 0)
+                        MessageBox.Show(playerName + " wanted to go to windows.");
+                    else
+                        MessageBox.Show(playerName + " hit the green border.");
+                }
+                else if (pixelColor == Colors.Gold)
+                {
+                    if (player == Player1)
+                    {
+                        Player1.JumpCollected = true;
+                    }
+                    else if (player == Player2)
+                    {
+                        Player2.JumpCollected = true;
+                    }
 
-                _timerManager.RemoveBonus();                               
-            }           
+                    _timerManager.RemoveBonus();
+                }
+                
+                CollisionDetected = false;
+            }
+        }
+        public void CheckCollisionAtPoint(double playerX, double playerY, double playerAngle)
+        {
+            // Offset by line thickness
+            double offset = GameSettings.LineThickness * 0.75;
+
+            // Coordinates of collision point in front of the player
+            double radians = playerAngle * (Math.PI / 180);
+            int collisionX = (int)(playerX + offset * Math.Cos(radians));
+            int collisionY = (int)(playerY + offset * Math.Sin(radians));
+
+            Point testPoint = new Point(collisionX, collisionY);
+            HitTestResult result = VisualTreeHelper.HitTest(GameCanvas, testPoint);
+
+            if (result != null)
+            {
+                if (result.VisualHit is Line ||
+                    result.VisualHit is Rectangle ||
+                    result.VisualHit is Ellipse)
+                {
+                    CollisionDetected = true;
+                }
+            }
         }
 
         public Color GetPixelColor(double playerX, double playerY, double playerAngle)

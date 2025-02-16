@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
+using TrackRaces.Logic;
 using TrackRaces.ViewModels;
 
 namespace TrackRaces.Views
@@ -28,7 +29,7 @@ namespace TrackRaces.Views
         private void ReturnToMenu_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is GameWindowViewModel viewModel)
-            {
+            {                
                 viewModel.StopAllTimers();
                 viewModel.ReturnToMainMenu();
             }

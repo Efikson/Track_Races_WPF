@@ -74,7 +74,7 @@ namespace TrackRaces.ViewModels
         public void StartGameTickTimer()
         {
             gameTickTimer = new DispatcherTimer();
-            gameTickTimer.Interval = TimeSpan.FromMilliseconds(33.33); // 33.33 - 30 FPS || 16.66 - 60 FPS
+            gameTickTimer.Interval = TimeSpan.FromMilliseconds(100); // 33.33 - 30 FPS || 16.66 - 60 FPS
             gameTickTimer.Tick += GameTickTimer_Tick;
             gameTickTimer.Start();
         }
@@ -82,7 +82,7 @@ namespace TrackRaces.ViewModels
         private void GameTickTimer_Tick(object sender, EventArgs e)
         {
             _playerCollision.CheckPlayerCollision(Player1);
-            _playerCollision.CheckPlayerCollision(Player2);
+            _playerCollision.CheckPlayerCollision(Player2);            
             CheckWinCondition();
             _playerController.UpdatePlayerMovements();
             _gameRenderer.UpdatePlayerPositions(Player1, Player2);
@@ -92,12 +92,13 @@ namespace TrackRaces.ViewModels
         {   
             _gameRenderer.RemovePlayerTracks();
             _gameRenderer.ResetPlayerPosition();
-            _gameRenderer.ResetPlayerBonus();
+            _gameRenderer.ResetPlayerBonus();            
             StartGameTickTimer();
         }
 
         public void ReturnToMainMenu()
         {
+            _gameRenderer.ResetPlayerScore();
             var mainMenu = App.ServiceProvider.GetRequiredService<MainMenu>();
             mainMenu.Show();
 

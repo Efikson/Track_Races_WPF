@@ -52,11 +52,16 @@ namespace TrackRaces.Logic
             Player1.JumpCollected = false;
             Player2.JumpCollected = false;
         }
+        public void ResetPlayerScore()
+        {
+            Player1.Score = 0;
+            Player2.Score = 0;
+        }
 
         public void UpdatePlayerPositions(Player player1, Player player2)
         {
             MovePlayer(Player1);
-            MovePlayer(Player2);
+            MovePlayer(Player2);            
         }
 
         private void MovePlayer(Player player)
@@ -83,6 +88,7 @@ namespace TrackRaces.Logic
                 Tag = "PlayerLine"
             };
             GameCanvas.Children.Add(line);
+            Thread.Sleep(100);//testování
         }
 
         public void ProcessJump(Player player)
