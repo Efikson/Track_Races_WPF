@@ -128,7 +128,8 @@ namespace TrackRaces.Logic
                 {
                     Width = 20,
                     Height = 20,
-                    Fill = Brushes.Gold
+                    Fill = Brushes.Gold,
+                    Tag = "Bonus"
                 };
                 GameCanvas.Children.Add(bonusShape);
             }

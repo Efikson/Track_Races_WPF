@@ -74,7 +74,7 @@ namespace TrackRaces.ViewModels
         public void StartGameTickTimer()
         {
             gameTickTimer = new DispatcherTimer();
-            gameTickTimer.Interval = TimeSpan.FromMilliseconds(100); // 33.33 - 30 FPS || 16.66 - 60 FPS
+            gameTickTimer.Interval = TimeSpan.FromMilliseconds(16.66); // 33.33 - 30 FPS || 16.66 - 60 FPS
             gameTickTimer.Tick += GameTickTimer_Tick;
             gameTickTimer.Start();
         }

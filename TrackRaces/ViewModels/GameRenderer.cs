@@ -66,29 +66,34 @@ namespace TrackRaces.Logic
 
         private void MovePlayer(Player player)
         {
+            double scalingFactor = 1/3.0;            
+            double movement =  GameSettings.LineSpeed * scalingFactor;
             double radians = player.Angle * (Math.PI / 180); // Convert degrees to radians
-            double newX = player.Position.X + GameSettings.LineSpeed * 0.75 * Math.Cos(radians);
-            double newY = player.Position.Y + GameSettings.LineSpeed * 0.75 * Math.Sin(radians);
+            double newX = player.Position.X + movement * Math.Cos(radians);
+            double newY = player.Position.Y + movement * Math.Sin(radians);
 
-            DrawLine(player.Position, new Point(newX, newY), player.Color);
+            DrawCircle(new Point(newX, newY), player.Color);
             player.Position = new Point(newX, newY);
         }
 
-        private void DrawLine(Point start, Point end, Color color)
+        private void DrawCircle(Point center, Color color)
         {
+            double diameter = GameSettings.LineThickness;
             Brush brushColor = new SolidColorBrush(color);
-            Line line = new Line
+
+            Ellipse circle = new Ellipse
             {
-                X1 = start.X,
-                Y1 = start.Y,
-                X2 = end.X,
-                Y2 = end.Y,
+                Width = diameter,
+                Height = diameter,
                 Stroke = brushColor,
                 StrokeThickness = GameSettings.LineThickness,
                 Tag = "PlayerLine"
             };
-            GameCanvas.Children.Add(line);
-            Thread.Sleep(100);//testování
+            // Set position to center of the circle            
+            Canvas.SetLeft(circle, center.X - diameter / 2);
+            Canvas.SetTop(circle, center.Y - diameter / 2);
+
+            GameCanvas.Children.Add(circle);
         }
 
         public void ProcessJump(Player player)
@@ -109,14 +114,14 @@ namespace TrackRaces.Logic
         public void RemovePlayerTracks()
         {
             // Find all lines with tag: PlayerLine
-            var playerLines = GameCanvas.Children
-                .OfType<Line>()
-                .Where(line => line.Tag.ToString() == "PlayerLine")
+            var playerTracks = GameCanvas.Children
+                .OfType<Ellipse>()
+                .Where(ellipse => ellipse.Tag.ToString() == "PlayerLine")
                 .ToList(); 
           
-            foreach (var line in playerLines)
+            foreach (var ellipse in playerTracks)
             {
-                GameCanvas.Children.Remove(line);
+                GameCanvas.Children.Remove(ellipse);
             }
         }
 
