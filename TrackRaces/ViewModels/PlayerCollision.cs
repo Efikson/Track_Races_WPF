@@ -75,8 +75,6 @@ namespace TrackRaces.ViewModels
             {
                 return;
             }
-
-            int randomMessage = random.Next(0, 2);
             
             CheckCollisionAtPoint(playerX, playerY, playerAngle);
 
@@ -84,45 +82,7 @@ namespace TrackRaces.ViewModels
             if (CollisionDetected)
             {
                 Color pixelColor = GetPixelColor(playerX, playerY, playerAngle);
-                
-                if (pixelColor == Colors.Red)
-                {
-                    HandleCollision(player);
-                    if (randomMessage == 0)
-                        MessageBox.Show(playerName + " got tricked.");
-                    else
-                        MessageBox.Show(playerName + " hit the red thin line.");
-                }
-                else if (pixelColor == Colors.Blue)
-                {
-                    HandleCollision(player);
-                    if (randomMessage == 0)
-                        MessageBox.Show(playerName + " got fooled.");
-                    else
-                        MessageBox.Show(playerName + " hit the blue track.");
-                }
-                else if (pixelColor == Colors.Green)
-                {
-                    HandleCollision(player);
-                    if (randomMessage == 0)
-                        MessageBox.Show(playerName + " wanted to go to windows.");
-                    else
-                        MessageBox.Show(playerName + " hit the green border.");
-                }
-                else if (pixelColor == Colors.Gold)
-                {
-                    if (player == Player1)
-                    {
-                        Player1.JumpCollected = true;
-                    }
-                    else if (player == Player2)
-                    {
-                        Player2.JumpCollected = true;
-                    }
-
-                    _timerManager.RemoveBonus();
-                }
-                
+                PostCollisionMessage(player, playerName, pixelColor);
                 CollisionDetected = false;
             }
         }
@@ -141,8 +101,7 @@ namespace TrackRaces.ViewModels
 
             if (result != null)
             {
-                if (result.VisualHit is Line ||
-                    result.VisualHit is Rectangle ||
+                if (result.VisualHit is Rectangle ||
                     result.VisualHit is Ellipse)
                 {
                     CollisionDetected = true;
@@ -190,6 +149,49 @@ namespace TrackRaces.ViewModels
             return Color.FromArgb(alpha, red, green, blue);
         }
 
+        public void PostCollisionMessage(Player player, string playerName, Color pixelColor)
+        {
+            int randomMessage = random.Next(0, 2);
+
+            if (pixelColor == Colors.Red)
+            {
+                HandleCollision(player);
+                if (randomMessage == 0)
+                    MessageBox.Show(playerName + " got tricked.");
+                else
+                    MessageBox.Show(playerName + " hit the red thin line.");
+            }
+            else if (pixelColor == Colors.Blue)
+            {
+                HandleCollision(player);
+                if (randomMessage == 0)
+                    MessageBox.Show(playerName + " got fooled.");
+                else
+                    MessageBox.Show(playerName + " hit the blue track.");
+            }
+            else if (pixelColor == Colors.Green)
+            {
+                HandleCollision(player);
+                if (randomMessage == 0)
+                    MessageBox.Show(playerName + " wanted to go to windows.");
+                else
+                    MessageBox.Show(playerName + " hit the green border.");
+            }
+            else if (pixelColor == Colors.Gold)
+            {
+                if (player == Player1)
+                {
+                    Player1.JumpCollected = true;
+                }
+                else if (player == Player2)
+                {
+                    Player2.JumpCollected = true;
+                }
+
+                _timerManager.RemoveBonus();
+            }
+        }
+
         public void HandleCollision(Player player)
         {
             if (player == Player1)
@@ -199,8 +201,8 @@ namespace TrackRaces.ViewModels
             else if (player == Player2)
             {
                 Player1.Score++;
-            }
-
+            }  
+            
             _viewModel.StopAllTimers();
         }
 
@@ -224,7 +226,7 @@ namespace TrackRaces.ViewModels
             if (IsOutOfBounds(player.Position))
             {
                 HandleCollision(player);
-                MessageBox.Show(playerName + " wanted to run away cowardly.");
+                MessageBox.Show(playerName + " wanted to run away cowardly.");                
             }
         }
 
