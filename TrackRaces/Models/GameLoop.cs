@@ -155,7 +155,7 @@ namespace TrackRaces.Models
 
             Application.Current.Windows
                 .OfType<GameWindow>()
-                .FirstOrDefault()?.Hide();
+                .FirstOrDefault()?.Close();
         }
     }
 }

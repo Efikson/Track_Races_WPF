@@ -42,7 +42,7 @@ namespace TrackRaces
 
             // Register Views
             services.AddSingleton<MainMenu>();
-            services.AddSingleton<GameWindow>();
+            services.AddTransient<GameWindow>();
         }
         
     }

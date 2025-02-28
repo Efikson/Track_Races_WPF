@@ -50,6 +50,7 @@ namespace TrackRaces.Models
         {
             _player1.JumpCollected = false;
             _player2.JumpCollected = false;
+            RemoveBonus();
         }
 
         public void ResetPlayerScore()
