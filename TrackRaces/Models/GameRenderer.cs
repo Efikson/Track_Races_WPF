@@ -3,71 +3,71 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using TrackRaces.Models;
 using TrackRaces.ViewModels;
 
-namespace TrackRaces.Logic
+namespace TrackRaces.Models
 {
     public class GameRenderer
     {
-        private Player Player1;
-        private Player Player2;
-        private GameSettings GameSettings;
-        private Canvas GameCanvas;
+        private Player _player1;
+        private Player _player2;
+        private GameSettings _gameSettings;
+        private Canvas _gameCanvas;
         private Random random = new Random();
         public GameRenderer()
-        {            
-            
+        {
+
         }
         public void SetCanvas(Canvas canvas)
         {
-            GameCanvas = canvas;
+            _gameCanvas = canvas;
         }
 
         public void SetPlayers(Player player1, Player player2)
         {
-            Player1 = player1;
-            Player2 = player2;
+            _player1 = player1;
+            _player2 = player2;
         }
 
         public void SetGameSettings(GameSettings gameSettings)
         {
-            GameSettings = gameSettings;
+            _gameSettings = gameSettings;
         }
 
         public void ResetPlayerPosition()
-        {            
-            double canvasWidth = GameCanvas.ActualWidth;
-            double canvasHeight = GameCanvas.ActualHeight;
+        {
+            double canvasWidth = _gameCanvas.ActualWidth;
+            double canvasHeight = _gameCanvas.ActualHeight;
 
-            Player1.Position = new Point(canvasWidth * 0.25, canvasHeight * 0.5);
-            Player2.Position = new Point(canvasWidth * 0.75, canvasHeight * 0.5);
+            _player1.Position = new Point(canvasWidth * 0.25, canvasHeight * 0.5);
+            _player2.Position = new Point(canvasWidth * 0.75, canvasHeight * 0.5);
 
-            Player1.Angle = random.Next(0, 360);
-            Player2.Angle = random.Next(0, 360);
+            _player1.Angle = random.Next(0, 360);
+            _player2.Angle = random.Next(0, 360);
         }
 
         public void ResetPlayerBonus()
         {
-            Player1.JumpCollected = false;
-            Player2.JumpCollected = false;
-        }
-        public void ResetPlayerScore()
-        {
-            Player1.Score = 0;
-            Player2.Score = 0;
+            _player1.JumpCollected = false;
+            _player2.JumpCollected = false;
         }
 
-        public void UpdatePlayerPositions(Player player1, Player player2)
+        public void ResetPlayerScore()
         {
-            MovePlayer(Player1);
-            MovePlayer(Player2);            
+            _player1.Score = 0;
+            _player2.Score = 0;
+        }
+
+        public void UpdatePlayerPositions()
+        {
+            MovePlayer(_player1);
+            MovePlayer(_player2);
         }
 
         private void MovePlayer(Player player)
         {
-            double scalingFactor = 1/3.0;            
-            double movement =  GameSettings.LineSpeed * scalingFactor;
+            double scalingFactor = 1 / 3.0;
+            double movement = _gameSettings.LineSpeed * scalingFactor;
             double radians = player.Angle * (Math.PI / 180); // Convert degrees to radians
             double newX = player.Position.X + movement * Math.Cos(radians);
             double newY = player.Position.Y + movement * Math.Sin(radians);
@@ -78,7 +78,7 @@ namespace TrackRaces.Logic
 
         private void DrawCircle(Point center, Color color)
         {
-            double diameter = GameSettings.LineThickness;
+            double diameter = _gameSettings.LineThickness;
             Brush brushColor = new SolidColorBrush(color);
 
             Ellipse circle = new Ellipse
@@ -86,19 +86,19 @@ namespace TrackRaces.Logic
                 Width = diameter,
                 Height = diameter,
                 Stroke = brushColor,
-                StrokeThickness = GameSettings.LineThickness,
+                StrokeThickness = _gameSettings.LineThickness,
                 Tag = "PlayerLine"
             };
             // Set position to center of the circle            
             Canvas.SetLeft(circle, center.X - diameter / 2);
             Canvas.SetTop(circle, center.Y - diameter / 2);
 
-            GameCanvas.Children.Add(circle);
+            _gameCanvas.Children.Add(circle);
         }
 
         public void ProcessJump(Player player)
         {
-            const int JumpRange = 50; 
+            const int JumpRange = 50;
 
             if (player.JumpCollected)
             {
@@ -110,17 +110,45 @@ namespace TrackRaces.Logic
             }
         }
 
+        private Ellipse bonusShape;
+        public void SpawnBonus()
+        {
+            if (bonusShape == null)
+            {
+                bonusShape = new Ellipse
+                {
+                    Width = 20,
+                    Height = 20,
+                    Fill = Brushes.Gold,
+                    Tag = "Bonus"
+                };
+                _gameCanvas.Children.Add(bonusShape);
+            }
+
+            double x = random.Next(10, (int)(_gameCanvas.ActualWidth - bonusShape.Width - 10));
+            double y = random.Next(10, (int)(_gameCanvas.ActualHeight - bonusShape.Height - 10));
+
+            Canvas.SetLeft(bonusShape, x);
+            Canvas.SetTop(bonusShape, y);
+        }
+        
+        public void RemoveBonus()
+        {
+            _gameCanvas.Children.Remove(bonusShape);
+            bonusShape = null;
+        }
+
         public void RemovePlayerTracks()
         {
             // Find all lines with tag: PlayerLine
-            var playerTracks = GameCanvas.Children
+            var playerTracks = _gameCanvas.Children
                 .OfType<Ellipse>()
                 .Where(ellipse => ellipse.Tag.ToString() == "PlayerLine")
-                .ToList(); 
-          
+                .ToList();
+
             foreach (var ellipse in playerTracks)
             {
-                GameCanvas.Children.Remove(ellipse);
+                _gameCanvas.Children.Remove(ellipse);
             }
         }
     }

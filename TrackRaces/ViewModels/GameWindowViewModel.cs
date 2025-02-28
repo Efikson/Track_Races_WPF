@@ -1,141 +1,57 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Threading;
-using TrackRaces.Logic;
 using TrackRaces.Models;
-using TrackRaces.Views;
+using TrackRaces.Services;
 
 namespace TrackRaces.ViewModels
 {
-    public class GameWindowViewModel
+    public class GameWindowViewModel : NotifyBase
     {
-        // Public properties for data binding
-        public Player Player1 { get; private set; }
-        public Player Player2 { get; private set; }
-        public GameSettings GameSettings { get; set; }
-        public int TimeUntilBonus { get; set; }
-        private Canvas GameCanvas;
-
-        // Declaring dependencies as private fields
-        private readonly GameRenderer _gameRenderer;
-        private readonly PlayerController _playerController;
-        private readonly PlayerCollision _playerCollision;
-        private readonly TimerManager _timerManager;
-
-        // "forwarding" public property for UI binding
+        private Player _player1;
+        private Player _player2;
+        private GameSettings _gameSettings;   
+        private readonly GameLoop _gameLoop;
+        private readonly TimerManager _timerManager;        
+        public Player Player1 => _player1;
+        public Player Player2 => _player2;
+        public GameSettings GameSettings => _gameSettings;
         public TimerManager TimerManager => _timerManager;
 
-        private DispatcherTimer gameTickTimer;  
-        
-        public GameWindowViewModel(GameRenderer gameRenderer,
-                                   PlayerController playerController,
-                                   PlayerCollision playerCollision,
-                                   TimerManager timerManager)
-        {                        
-            _gameRenderer = gameRenderer;
-            _playerController = playerController;
-            _playerCollision = playerCollision;
-            _timerManager = timerManager;           
-        }
+        // Commands
+        public RelayCommand StartGameCommand { get; }
+        public RelayCommand ReturnToMenuCommand { get; }
+
+        public GameWindowViewModel(GameLoop gameLoop, TimerManager timerManager)
+        {
+            _gameLoop = gameLoop;
+            _timerManager = timerManager;
+
+            // Initialize commands
+            StartGameCommand = new RelayCommand(StartGame);
+            ReturnToMenuCommand = new RelayCommand(ReturnToMenu);
+        }   
 
         public void SetPlayers(Player player1, Player player2)
         {
-            Player1 = player1;
-            Player2 = player2;
-            _gameRenderer.SetPlayers(player1, player2);
-            _playerController.SetPlayers(player1, player2);
-            _playerCollision.SetPlayers(player1, player2);
+            _player1 = player1;
+            _player2 = player2;            
         }
 
         public void SetGameSettings(GameSettings gameSettings)
         {
-            GameSettings = gameSettings;
-            _gameRenderer.SetGameSettings(gameSettings);
-            _playerCollision.SetGameSettings(gameSettings);
+            _gameSettings = gameSettings;
         }
 
-        public void SetCanvas(Canvas canvas)
+        private void StartGame()
         {
-            GameCanvas = canvas;
-            _gameRenderer.SetCanvas(canvas);
-            _timerManager.SetCanvas(canvas);
-            _playerCollision.SetCanvas(canvas);
+            _gameLoop.StartGame();
         }
 
-        public void SetViewModel(GameWindowViewModel viewModel)
+        private void ReturnToMenu()
         {
-            _timerManager.SetViewModel(this);
-            _playerCollision.SetViewModel(this);
-        }
-
-        public void StartGameTickTimer()
-        {
-            gameTickTimer = new DispatcherTimer();
-            gameTickTimer.Interval = TimeSpan.FromMilliseconds(16.66); // 33.33 - 30 FPS || 16.66 - 60 FPS
-            gameTickTimer.Tick += GameTickTimer_Tick;
-            gameTickTimer.Start();
-        }
-
-        private void GameTickTimer_Tick(object sender, EventArgs e)
-        {
-            _playerCollision.CheckPlayerCollision(Player1);
-            _playerCollision.CheckPlayerCollision(Player2);   
-            _playerController.UpdatePlayerMovements();
-            _gameRenderer.UpdatePlayerPositions(Player1, Player2);
-        }
-
-        public void StartGame()
-        {   
-            _gameRenderer.RemovePlayerTracks();
-            _gameRenderer.ResetPlayerPosition();
-            _gameRenderer.ResetPlayerBonus();            
-            StartGameTickTimer();
-        }
-
-        public void ReturnToMainMenu()
-        {
-            _gameRenderer.ResetPlayerScore();
-            var mainMenu = App.ServiceProvider.GetRequiredService<MainMenu>();
-            mainMenu.Show();
-
-            Application.Current.Windows
-                .OfType<GameWindow>()
-                .FirstOrDefault()?.Hide();
-        }
-
-        public void StartCountdownTimer()
-        {
-            if (_playerCollision.GameOver == true)
-            {
-                _playerCollision.GameOver = false;
-                _timerManager.StartCountdown();
-                _timerManager.StartBonusTimer();
-            }            
-        }
-        
-        public void StopAllTimers()
-        {
-            gameTickTimer.Stop();
-            _timerManager.StopTimers();
-        }
-
-        public void CheckWinCondition()
-        {
-            if (Player1.Score >= GameSettings.TargetScore)
-            {
-                MessageBox.Show($"{Player1.Name} wins!");
-                ReturnToMainMenu();
-            }
-            else if (Player2.Score >= GameSettings.TargetScore)
-            {
-                MessageBox.Show($"{Player2.Name} wins!");
-                ReturnToMainMenu();
-            }
+            _gameLoop.ReturnToMenu();
         }
     }
 }

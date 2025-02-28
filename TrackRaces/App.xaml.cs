@@ -2,8 +2,8 @@
 using System;
 using System.Windows;
 using System.Windows.Media;
-using TrackRaces.Logic;
 using TrackRaces.Models;
+using TrackRaces.Services;
 using TrackRaces.ViewModels;
 using TrackRaces.Views;
 
@@ -29,13 +29,16 @@ namespace TrackRaces
 
         private void ConfigureServices(IServiceCollection services)
         {
-            // Register ViewModels
+            //register models
             services.AddSingleton<GameRenderer>();
-            services.AddSingleton<GameWindowViewModel>();
-            services.AddSingleton<MainMenuViewModel>();
             services.AddSingleton<PlayerCollision>();
             services.AddSingleton<PlayerController>();
-            services.AddSingleton<TimerManager>();   
+            services.AddSingleton<TimerManager>(); 
+            services.AddSingleton<GameLoop>();            
+
+            // Register ViewModels
+            services.AddSingleton<GameWindowViewModel>();
+            services.AddSingleton<MainMenuViewModel>();
 
             // Register Views
             services.AddSingleton<MainMenu>();

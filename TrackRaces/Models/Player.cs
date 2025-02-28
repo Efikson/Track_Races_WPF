@@ -2,39 +2,41 @@
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media;
+using TrackRaces.Services;
 using static System.Formats.Asn1.AsnWriter;
 
 namespace TrackRaces.Models
 {
-    public class Player : INotifyPropertyChanged
+    public class Player : NotifyBase
     {
         public string Name { get; set; }
         public Color Color { get; set; }        
         public Point Position { get; set; }
         public double Angle { get; set; }
 
-        private int score;
+        private int _score;
         public int Score
         {
-            get => score;
+            get => _score;
             set
             {
-                if (score != value)
+                if (_score != value)
                 {
-                    score = value;
+                    _score = value;
                     OnPropertyChanged();
                 }
             }
         }
-        private bool jumpCollected;
+
+        private bool _jumpCollected;
         public bool JumpCollected
         {
-            get => jumpCollected;
+            get => _jumpCollected;
             set
             {
-                if (jumpCollected != value)
+                if (_jumpCollected != value)
                 {
-                    jumpCollected = value;
+                    _jumpCollected = value;
                     OnPropertyChanged();
                 }
             }
@@ -46,12 +48,11 @@ namespace TrackRaces.Models
             Color = color;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public static (Player, Player) CreateDefaultPlayers()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            var player1 = new Player("Player One", Colors.Red);
+            var player2 = new Player("Player Two", Colors.Blue);
+            return (player1, player2);
         }
-
     }
 }
