@@ -6,74 +6,71 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using TrackRaces.Models;
+using TrackRaces.Services;
 using TrackRaces.ViewModels;
 
-namespace TrackRaces.Logic
-{    
-    public class TimerManager : INotifyPropertyChanged
+namespace TrackRaces.Models
+{
+    public class TimerManager : NotifyBase
     {
         private GameWindowViewModel _viewModel;
+        private Canvas GameCanvas;
         private DispatcherTimer countdownTimer;
         private DispatcherTimer bonusTimer;
-        private Canvas GameCanvas;
-        private Random random = new Random();
-        private Ellipse bonusShape;
-        public Ellipse BonusShape
-        {
-            get => bonusShape;
-            private set => bonusShape = value;
-        }
+        private readonly GameRenderer _gameRenderer;
 
-        private string countdownValue;
+        public event Action CountdownFinished;
+
+        private string _countdownValue;
         public string CountdownValue
         {
-            get => countdownValue;
+            get => _countdownValue;
             set
             {
-                if (countdownValue != value)
+                if (_countdownValue != value)
                 {
-                    countdownValue = value;
+                    _countdownValue = value;
                     OnPropertyChanged(nameof(CountdownValue));
                 }
             }
         }
 
-        private int timeUntilBonus;
+        private int _timeUntilBonus;
         public int TimeUntilBonus
         {
-            get => timeUntilBonus;
+            get => _timeUntilBonus;
             set
             {
-                if (timeUntilBonus != value)
+                if (_timeUntilBonus != value)
                 {
-                    timeUntilBonus = value;
-                    OnPropertyChanged(nameof(timeUntilBonus));
+                    _timeUntilBonus = value;
+                    OnPropertyChanged(nameof(TimeUntilBonus));
                 }
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        
-        protected virtual void OnPropertyChanged(string propertyName)
+        public TimerManager(GameRenderer gameRenderer)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            _gameRenderer = gameRenderer;
         }
 
-        public TimerManager()
-        {
-            
-        }
         public void SetCanvas(Canvas canvas)
         {
             GameCanvas = canvas;
         }
+
         public void SetViewModel(GameWindowViewModel viewModel)
         {
             _viewModel = viewModel;
         }
-        
-        public void StartCountdown()
+
+        public void StartTimers()
+        {
+           StartCountdownTimer();
+           StartBonusTimer();
+        }
+
+        public void StartCountdownTimer()
         {
             CountdownValue = "3";
             countdownTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
@@ -95,10 +92,10 @@ namespace TrackRaces.Logic
                 countdownTimer.Stop();
                 CountdownValue = "";
 
-                _viewModel.StartGame();
+                CountdownFinished.Invoke();
             }
         }
-        
+
         public void StartBonusTimer()
         {
             TimeUntilBonus = 5;
@@ -114,37 +111,10 @@ namespace TrackRaces.Logic
                 TimeUntilBonus--;
             }
             else
-            {                
-                TimeUntilBonus = 5;
-                SpawnBonus();
-            }
-        }
-        
-        public void SpawnBonus()
-        {
-            if (bonusShape == null)
             {
-                bonusShape = new Ellipse
-                {
-                    Width = 20,
-                    Height = 20,
-                    Fill = Brushes.Gold,
-                    Tag = "Bonus"
-                };
-                GameCanvas.Children.Add(bonusShape);
+                TimeUntilBonus = 5;
+                _gameRenderer.SpawnBonus();
             }
-
-            double x = random.Next(10, (int)(GameCanvas.ActualWidth - bonusShape.Width - 10));
-            double y = random.Next(10, (int)(GameCanvas.ActualHeight - bonusShape.Height - 10));
-
-            Canvas.SetLeft(bonusShape, x);
-            Canvas.SetTop(bonusShape, y);
-        }
-
-        public void RemoveBonus()
-        {           
-            GameCanvas.Children.Remove(bonusShape);
-            bonusShape = null;            
         }
 
         public void StopTimers()

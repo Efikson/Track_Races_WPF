@@ -7,36 +7,86 @@
         mc:Ignorable="d"
         Title="MainMenu" Height="300" Width="440"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize"
-        KeyDown="Window_KeyDown"> 
+        ResizeMode="NoResize">
 
-    <Grid>
+    <!-- Global styles definition -->
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>            
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="200"/>
+        </Style>
+
+        <Style TargetType="Slider">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="200"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+
+    <!-- InputBindings section for key commands -->
+    <Window.InputBindings>
+        <KeyBinding Key="Enter" Command="{Binding StartGameCommand}"/>
+        <KeyBinding Key="Esc" Command="{Binding ExitCommand}"/>
+    </Window.InputBindings>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="130"/>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
         <!-- Player 1 Name -->
-        <Label Content="Player One Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0" />
-        <TextBox Text="{Binding Player1.Name}" MaxLength="18" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="150,20,0,0" />
-        <TextBlock Text="Q | A D" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="360,20,0,0" />
+        <Label Grid.Row="0" Grid.Column="0" Content="Player One Name:"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Player1.Name}" MaxLength="18"/>
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="Q | A D"/>
 
         <!-- Player 2 Name -->
-        <Label Content="Player Two Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,60,0,0" />
-        <TextBox Text="{Binding Player2.Name}" MaxLength="18" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="150,60,0,0" />
-        <TextBlock Text="0 | ← →" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="360,60,0,0" />
+        <Label Grid.Row="1" Grid.Column="0" Content="Player Two Name:"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Player2.Name}" MaxLength="18"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="0 | ← →"/>
 
         <!-- Line Thickness -->
-        <Label Content="Line Thickness:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,100,0,0" />
-        <Slider Minimum="5" Maximum="20" Value="{Binding GameSettings.LineThickness}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="150,100,0,0" />
-        <TextBlock Text="{Binding GameSettings.LineThickness}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="360,100,0,0" />
+        <Label Grid.Row="2" Grid.Column="0" Content="Line Thickness:"/>
+        <Slider Grid.Row="2" Grid.Column="1" Minimum="5" Maximum="20" Value="{Binding GameSettings.LineThickness}"/>
+        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding GameSettings.LineThickness}"/>
 
         <!-- Line Speed -->
-        <Label Content="Line Speed:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,140,0,0" />
-        <Slider Minimum="1" Maximum="10" Value="{Binding GameSettings.LineSpeed}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="150,140,0,0" />
-        <TextBlock Text="{Binding GameSettings.LineSpeed}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="360,140,0,0" />
+        <Label Grid.Row="3" Grid.Column="0" Content="Line Speed:"/>
+        <Slider Grid.Row="3" Grid.Column="1" Minimum="1" Maximum="10" Value="{Binding GameSettings.LineSpeed}"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding GameSettings.LineSpeed}"/>
 
         <!-- Rounds -->
-        <Label Content="First to reach:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,180,0,0" />
-        <Slider Minimum="1" Maximum="15" Value="{Binding GameSettings.TargetScore}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="150,180,0,0" />
-        <TextBlock Text="{Binding GameSettings.TargetScore }" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="360,180,0,0" />
+        <Label Grid.Row="4" Grid.Column="0" Content="First to reach:"/>
+        <Slider Grid.Row="4" Grid.Column="1" Minimum="1" Maximum="15" Value="{Binding GameSettings.TargetScore}"/>
+        <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding GameSettings.TargetScore}"/>
 
-        <!-- Start Game Button -->
-        <Button Content="Start Game" Click="StartGameButton_Click" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Margin="0,0,0,20" />
+        <!-- Buttons: Start Game -->
+        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"
+        Content="Start Game" Command="{Binding StartGameCommand}"
+        Width="150" FontSize="17" />
     </Grid>
 </Window>

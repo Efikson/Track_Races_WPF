@@ -1,17 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using System.Windows.Input;
-using TrackRaces.Models;
-using TrackRaces.ViewModels;
 using TrackRaces.Views;
 
-namespace TrackRaces.Logic
+namespace TrackRaces.Models
 {
     public class PlayerController
     {
-        private Player Player1;
-        private Player Player2;       
-        public double TurnSpeed { get; set; } = 5.0;
+        private Player _player1;
+        private Player _player2;
+        private double TurnSpeed { get; set; } = 5.0;
         private readonly GameRenderer _gameRenderer;
         private readonly PlayerCollision _playerCollision;
 
@@ -23,38 +21,37 @@ namespace TrackRaces.Logic
 
         public void SetPlayers(Player player1, Player player2)
         {
-            Player1 = player1;
-            Player2 = player2;
+            _player1 = player1;
+            _player2 = player2;
         }
 
         public void UpdatePlayerMovements()
-        {            
+        {
             if (Keyboard.IsKeyDown(Key.A))
             {
-                RotatePlayer(Player1, -TurnSpeed);
+                RotatePlayer(_player1, -TurnSpeed);
             }
             if (Keyboard.IsKeyDown(Key.D))
             {
-                RotatePlayer(Player1, TurnSpeed);
+                RotatePlayer(_player1, TurnSpeed);
             }
-   
             if (Keyboard.IsKeyDown(Key.Left))
             {
-                RotatePlayer(Player2, -TurnSpeed);
+                RotatePlayer(_player2, -TurnSpeed);
             }
             if (Keyboard.IsKeyDown(Key.Right))
             {
-                RotatePlayer(Player2, TurnSpeed);
+                RotatePlayer(_player2, TurnSpeed);
             }
             if (Keyboard.IsKeyDown(Key.Q))
             {
-                _gameRenderer.ProcessJump(Player1);
-                _playerCollision.CheckJumpCollision(Player1);
+                _gameRenderer.ProcessJump(_player1);
+                _playerCollision.CheckJumpCollision(_player1);
             }
             if (Keyboard.IsKeyDown(Key.NumPad0))
             {
-                _gameRenderer.ProcessJump(Player2);
-                _playerCollision.CheckJumpCollision(Player2);
+                _gameRenderer.ProcessJump(_player2);
+                _playerCollision.CheckJumpCollision(_player2);
             }
         }
 

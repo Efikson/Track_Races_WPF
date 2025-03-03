@@ -6,51 +6,54 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows;
-using TrackRaces.Models;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Numerics;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Documents;
-using TrackRaces.Logic;
 using System.Windows.Shapes;
 using System.Security.Cryptography.X509Certificates;
+using TrackRaces.ViewModels;
 
-namespace TrackRaces.ViewModels
+namespace TrackRaces.Models
 {
     public class PlayerCollision
     {
-        private Player Player1;
-        private Player Player2;
-        private Canvas GameCanvas;
-        private GameSettings GameSettings;     
+        private Player _player1;
+        private Player _player2;
+        private Canvas _gameCanvas;
+        private GameSettings _gameSettings;
         private GameWindowViewModel _viewModel;
         private Random random = new Random();
         private RenderTargetBitmap _cachedBitmap;
-        private readonly TimerManager _timerManager;    
-        private bool CollisionDetected = false;
-        public bool GameOver { get; set; } = true;
+        private readonly GameRenderer _gameRenderer;
+        private readonly TimerManager _timerManager;
 
-        public PlayerCollision(TimerManager timerManager)
+        private bool CollisionDetected = false;
+
+        public event Action CollisionOccured;
+
+        public PlayerCollision(GameRenderer gameRenderer, TimerManager timerManager)
         {
-            _timerManager = timerManager;
+            _gameRenderer = gameRenderer;
+            _timerManager = timerManager;    
         }
 
         public void SetPlayers(Player player1, Player player2)
         {
-            Player1 = player1;
-            Player2 = player2;
+            _player1 = player1;
+            _player2 = player2;
         }
 
         public void SetGameSettings(GameSettings gameSettings)
         {
-            GameSettings = gameSettings;
+            _gameSettings = gameSettings;
         }
 
         public void SetCanvas(Canvas canvas)
         {
-            GameCanvas = canvas;
+            _gameCanvas = canvas;
         }
 
         public void SetViewModel(GameWindowViewModel viewModel)
@@ -60,35 +63,18 @@ namespace TrackRaces.ViewModels
 
         public void CheckPlayerCollision(Player player)
         {
-            double playerX, playerY, playerAngle;
-            string playerName;
+            double playerX = player.Position.X;
+            double playerY = player.Position.Y;
+            double playerAngle = player.Angle;
+            string playerName = player.Name;
 
-            if (player == Player1)
-            {
-                playerX = Player1.Position.X;
-                playerY = Player1.Position.Y;
-                playerAngle = Player1.Angle;
-                playerName = Player1.Name;
-            }
-            else if (player == Player2)
-            {
-                playerX = Player2.Position.X;
-                playerY = Player2.Position.Y;
-                playerAngle = Player2.Angle;
-                playerName = Player2.Name;
-            }
-            else
-            {
-                return;
-            }
-            
             CheckCollisionAtPoint(playerX, playerY, playerAngle);
 
             // Analyze collision via bitmap
             if (CollisionDetected)
             {
                 Color pixelColor = GetPixelColor(playerX, playerY, playerAngle);
-                PostCollisionMessage(player, playerName, pixelColor);
+                ReactToCollision(player, playerName, pixelColor);
                 CollisionDetected = false;
             }
         }
@@ -96,7 +82,7 @@ namespace TrackRaces.ViewModels
         public void CheckCollisionAtPoint(double playerX, double playerY, double playerAngle)
         {
             // Offset by line thickness
-            double offset = GameSettings.LineThickness * 0.75;
+            double offset = _gameSettings.LineThickness * 0.75;
 
             // Coordinates of collision point in front of the player
             double radians = playerAngle * (Math.PI / 180);
@@ -104,7 +90,7 @@ namespace TrackRaces.ViewModels
             int collisionY = (int)(playerY + offset * Math.Sin(radians));
 
             Point testPoint = new Point(collisionX, collisionY);
-            HitTestResult result = VisualTreeHelper.HitTest(GameCanvas, testPoint);
+            HitTestResult result = VisualTreeHelper.HitTest(_gameCanvas, testPoint);
 
             if (result != null)
             {
@@ -119,15 +105,15 @@ namespace TrackRaces.ViewModels
         public Color GetPixelColor(double playerX, double playerY, double playerAngle)
         {
             // Offset by line thickness
-            double offset = GameSettings.LineThickness * 0.75;
+            double offset = _gameSettings.LineThickness * 0.75;
 
             // Coordinates of collision point in front of the player
-            double radians = playerAngle * (Math.PI / 180);            
+            double radians = playerAngle * (Math.PI / 180);
             int collisionX = (int)(playerX + offset * Math.Cos(radians));
             int collisionY = (int)(playerY + offset * Math.Sin(radians));
-            
-            int width = (int)GameCanvas.ActualWidth;
-            int height = (int)GameCanvas.ActualHeight;
+
+            int width = (int)_gameCanvas.ActualWidth;
+            int height = (int)_gameCanvas.ActualHeight;
 
             // RenderTargetBitmap with canvas dimensions and standard DPI (96) 
             if (_cachedBitmap == null)
@@ -136,7 +122,7 @@ namespace TrackRaces.ViewModels
             }
 
             // Update bitmap contents
-            _cachedBitmap.Render(GameCanvas);
+            _cachedBitmap.Render(_gameCanvas);
 
             // Each pixel has 4 bytes (BGRA)
             int stride = width * 4;
@@ -156,7 +142,7 @@ namespace TrackRaces.ViewModels
             return Color.FromArgb(alpha, red, green, blue);
         }
 
-        public void PostCollisionMessage(Player player, string playerName, Color pixelColor)
+        public void ReactToCollision(Player player, string playerName, Color pixelColor)
         {
             int randomMessage = random.Next(0, 2);
 
@@ -186,32 +172,30 @@ namespace TrackRaces.ViewModels
             }
             else if (pixelColor == Colors.Gold)
             {
-                if (player == Player1)
+                if (player == _player1)
                 {
-                    Player1.JumpCollected = true;
+                    _player1.JumpCollected = true;
                 }
-                else if (player == Player2)
+                else if (player == _player2)
                 {
-                    Player2.JumpCollected = true;
+                    _player2.JumpCollected = true;
                 }
 
-                _timerManager.RemoveBonus();
+                _gameRenderer.RemoveBonus();
             }
         }
 
         public void HandleCollision(Player player)
         {
-            if (player == Player1)
+            if (player == _player1)
             {
-                Player2.Score++;
+                _player2.Score++;
             }
-            else if (player == Player2)
+            else if (player == _player2)
             {
-                Player1.Score++;
-            }
-            GameOver = true;
-            _viewModel.StopAllTimers();
-            _viewModel.CheckWinCondition();
+                _player1.Score++;
+            }           
+            CollisionOccured.Invoke();
             _timerManager.CountdownValue = "Press ENTER for a new round";
         }
 
@@ -219,13 +203,13 @@ namespace TrackRaces.ViewModels
         {
             string playerName;
 
-            if (player == Player1)
-            {  
-                playerName = Player1.Name;
-            }
-            else if (player == Player2)
+            if (player == _player1)
             {
-                playerName = Player2.Name;
+                playerName = _player1.Name;
+            }
+            else if (player == _player2)
+            {
+                playerName = _player2.Name;
             }
             else
             {
@@ -242,8 +226,8 @@ namespace TrackRaces.ViewModels
         private bool IsOutOfBounds(Point position)
         {
             return position.X < 0 || position.Y < 0 ||
-                   position.X > GameCanvas.ActualWidth ||
-                   position.Y > GameCanvas.ActualHeight;
+                   position.X > _gameCanvas.ActualWidth ||
+                   position.Y > _gameCanvas.ActualHeight;
         }
     }
 }
